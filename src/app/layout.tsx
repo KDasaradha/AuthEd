@@ -5,6 +5,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { Header } from '@/components/layout/Header';
 import { SideNav } from '@/components/layout/SideNav';
 import { cn } from '@/lib/utils';
+import { ThemeProvider } from '@/components/ThemeProvider';
 
 export const metadata: Metadata = {
   title: {
@@ -20,30 +21,37 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="light" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
       </head>
       <body className={cn('font-body antialiased min-h-screen')}>
-        <SidebarProvider>
-            <div className="flex min-h-screen flex-col">
-              <Header />
-              <div className="flex flex-1">
-                <Sidebar className="hidden md:flex md:flex-col md:w-64" variant="sidebar" side="left" collapsible="icon">
-                  <SideNav />
-                </Sidebar>
-                <SidebarInset className="flex-1">
-                  <main className="p-4 md:p-6 lg:p-8">
-                    {children}
-                  </main>
-                </SidebarInset>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <SidebarProvider>
+              <div className="flex min-h-screen flex-col">
+                <Header />
+                <div className="flex flex-1">
+                  <Sidebar className="hidden md:flex md:flex-col md:w-64" variant="sidebar" side="left" collapsible="icon">
+                    <SideNav />
+                  </Sidebar>
+                  <SidebarInset className="flex-1">
+                    <main className="p-4 md:p-6 lg:p-8">
+                      {children}
+                    </main>
+                  </SidebarInset>
+                </div>
               </div>
-            </div>
-        </SidebarProvider>
-        <Toaster />
+          </SidebarProvider>
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );

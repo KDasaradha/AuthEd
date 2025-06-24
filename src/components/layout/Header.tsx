@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { useSidebar } from '../ui/sidebar';
 import { SideNav } from './SideNav';
+import { ThemeToggle } from '../ThemeToggle';
 
 const navLinks = [
   { href: '/auth-types', label: 'Auth Types' },
@@ -54,9 +55,9 @@ export function Header() {
               <span className="font-bold font-headline">AuthEd</span>
             </Link>
           </div>
-          <nav className="hidden md:flex items-center">
-            {/* Future elements like theme toggle or user profile can go here */}
-          </nav>
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+          </div>
         </div>
       </div>
     </header>
