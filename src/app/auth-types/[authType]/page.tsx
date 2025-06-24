@@ -54,7 +54,7 @@ export default function AuthTypeDetailPage({ params }: Props) {
                 <CardHeader>
                     <CardTitle>Technical Explanation</CardTitle>
                 </CardHeader>
-                <CardContent className="prose prose-blue dark:prose-invert max-w-none">
+                <CardContent className="prose dark:prose-invert max-w-none">
                     <p>{authType.technicalExplanation}</p>
                 </CardContent>
             </Card>

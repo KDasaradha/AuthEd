@@ -60,15 +60,15 @@ export function InteractiveDemo() {
                  </div>
                  
                 {token && (
-                    <Alert variant="default">
-                        <AlertTitle>Token Received</AlertTitle>
-                        <AlertDescription className="break-all text-xs text-green-700">{token}</AlertDescription>
+                    <Alert>
+                        <AlertTitle className="text-primary">Token Received</AlertTitle>
+                        <AlertDescription className="break-all text-xs text-muted-foreground">{token}</AlertDescription>
                     </Alert>
                 )}
                 {protectedData && (
-                    <Alert variant="default">
-                        <AlertTitle className='text-green-800'>Success!</AlertTitle>
-                        <AlertDescription className="text-green-700">{protectedData}</AlertDescription>
+                    <Alert>
+                        <AlertTitle className='text-primary'>Success!</AlertTitle>
+                        <AlertDescription className="text-muted-foreground">{protectedData}</AlertDescription>
                     </Alert>
                 )}
                  {error && (
