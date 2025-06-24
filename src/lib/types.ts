@@ -7,6 +7,6 @@ export type AuthType = {
   complexity: 'Low' | 'Medium' | 'High';
   protocols: string;
   technicalExplanation: string;
-  setupInstructions: React.ReactNode;
-  diagram: React.ReactNode;
+  setupInstructions: React.ComponentType;
+  diagram: React.ComponentType;
 };

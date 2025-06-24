@@ -1,6 +1,10 @@
-import React from 'react';
 import type { AuthType } from './types';
-import { ApiKeyDiagram, BasicAuthDiagram, GenericAuthDiagram, OAuth2Diagram } from '@/components/auth/AuthTypeDiagrams';
+import { 
+    ApiKeyDiagram, 
+    BasicAuthDiagram, 
+    GenericAuthDiagram, 
+    OAuth2Diagram 
+} from '@/components/auth/AuthTypeDiagrams';
 import { 
     BasicAuthSetup,
     TokenBasedSetup,
@@ -40,8 +44,8 @@ export const authTypes: AuthType[] = [
     complexity: "Low",
     protocols: "HTTP",
     technicalExplanation: "HTTP Basic Authentication is a simple challenge-response mechanism where a user agent provides a username and password. These credentials are combined into a 'username:password' string, encoded using Base64, and sent in the `Authorization` header of every HTTP request. Example: `Authorization: Basic dXNlcjpwYXNz`. Critically, Base64 is an encoding, not encryption, so credentials are sent in a reversible format. Without HTTPS (TLS) to encrypt the entire request, this method is highly insecure and vulnerable to sniffing. It is stateless, requiring credentials to be sent with each request.",
-    setupInstructions: <BasicAuthSetup />,
-    diagram: <BasicAuthDiagram />,
+    setupInstructions: BasicAuthSetup,
+    diagram: BasicAuthDiagram,
   },
   {
     slug: "token-based-authentication",
@@ -52,8 +56,8 @@ export const authTypes: AuthType[] = [
     complexity: "Medium",
     protocols: "HTTP, WebSocket",
     technicalExplanation: "After a user logs in with credentials, the server creates a JSON Web Token (JWT) and sends it to the client. A JWT is a self-contained, stateless token with three parts: a header, a payload (containing user data or 'claims' like user ID and roles), and a cryptographic signature. The signature, created with a secret key known only to the server, ensures the token's integrity. The client stores this token (e.g., in localStorage or a secure cookie) and sends it with every protected request in the `Authorization: Bearer <token>` header. The server can then validate the token without needing to look up session data.",
-    setupInstructions: <TokenBasedSetup />,
-    diagram: <GenericAuthDiagram />,
+    setupInstructions: TokenBasedSetup,
+    diagram: GenericAuthDiagram,
   },
   {
     slug: "oauth2-authentication",
@@ -64,8 +68,8 @@ export const authTypes: AuthType[] = [
     complexity: "High",
     protocols: "HTTP",
     technicalExplanation: "OAuth2 is an authorization framework, not an authentication protocol. It enables an application (the Client) to obtain limited, delegated access to a user's resources on another service (the Resource Server), without exposing their credentials. It defines roles (Resource Owner, Client, Authorization Server, Resource Server) and various 'grant types' (flows) like Authorization Code for web apps, which is considered the most secure for that context. The outcome is an Access Token, which is a key that grants specific, scoped permissions.",
-    setupInstructions: <OAuth2Setup />,
-    diagram: <OAuth2Diagram />,
+    setupInstructions: OAuth2Setup,
+    diagram: OAuth2Diagram,
   },
   {
     slug: "session-based-authentication",
@@ -76,8 +80,8 @@ export const authTypes: AuthType[] = [
     complexity: "Low",
     protocols: "HTTP (Cookies)",
     technicalExplanation: "In this stateful model, the server creates and maintains a session for a user upon successful login. It stores session information (like user ID) on the server-side (in memory, a database, or a cache like Redis) and sends a unique Session ID to the client. This ID is typically sent in a secure, `HttpOnly` cookie. The browser automatically sends this cookie with every subsequent request, allowing the server to look up the session data, identify the user, and maintain their authenticated state across multiple page views.",
-    setupInstructions: <SessionBasedSetup />,
-    diagram: <GenericAuthDiagram />,
+    setupInstructions: SessionBasedSetup,
+    diagram: GenericAuthDiagram,
   },
   {
     slug: "api-key-authentication",
@@ -88,8 +92,8 @@ export const authTypes: AuthType[] = [
     complexity: "Low",
     protocols: "HTTP",
     technicalExplanation: "API keys are used to identify the consuming application or project making a request, not a specific end-user. It's a simple way to control access, track usage for billing, and apply rate limiting. The key is a long, unique string that the client sends with each request, typically in a custom HTTP header like `X-API-Key`, a query parameter, or the request body. Because the key is static and often long-lived, it should be treated like a secret and protected accordingly. It does not provide user-level authentication.",
-    setupInstructions: <ApiKeySetup />,
-    diagram: <ApiKeyDiagram />,
+    setupInstructions: ApiKeySetup,
+    diagram: ApiKeyDiagram,
   },
   {
     slug: "digest-authentication",
@@ -100,8 +104,8 @@ export const authTypes: AuthType[] = [
     complexity: "Medium",
     protocols: "HTTP",
     technicalExplanation: "As a challenge-response protocol, Digest Auth improves on Basic Auth by never sending the password in cleartext. The server sends a 'nonce' (a random value). The client creates an MD5 hash of the username, password, nonce, URI, and HTTP method. This hash is sent to the server, which performs the same calculation to verify. While better than Basic, it is still vulnerable to man-in-the-middle attacks (without TLS) and uses the outdated MD5 algorithm. It is largely considered obsolete in favor of modern protocols.",
-    setupInstructions: <DigestAuthSetup />,
-    diagram: <GenericAuthDiagram />,
+    setupInstructions: DigestAuthSetup,
+    diagram: GenericAuthDiagram,
   },
   {
     slug: "certificate-based-authentication",
@@ -112,8 +116,8 @@ export const authTypes: AuthType[] = [
     complexity: "High",
     protocols: "TLS/SSL",
     technicalExplanation: "This method, also known as Mutual TLS (mTLS), uses X.509 digital certificates for strong authentication. The client presents its own certificate to the server during the TLS handshake. The server verifies that the certificate was issued by a trusted Certificate Authority (CA) and has not been revoked. This provides strong, passwordless authentication for a user or device, as possession of the certificate and its corresponding private key proves identity. It is a cornerstone of Zero Trust architectures for service-to-service communication.",
-    setupInstructions: <CertificateBasedSetup />,
-    diagram: <GenericAuthDiagram />,
+    setupInstructions: CertificateBasedSetup,
+    diagram: GenericAuthDiagram,
   },
   {
     slug: "openid-connect",
@@ -124,8 +128,8 @@ export const authTypes: AuthType[] = [
     complexity: "High",
     protocols: "HTTP, OAuth2",
     technicalExplanation: "OIDC is a thin identity layer built on top of OAuth 2.0. While OAuth 2.0 provides authorization ('what a user can do'), OIDC provides authentication ('who a user is'). It introduces the `ID Token`, a specially formatted JSON Web Token (JWT) that contains user profile information (claims like name, email, etc.). It standardizes how clients can verify the identity of the end-user based on the authentication performed by an Authorization Server, as well as to obtain basic profile information about the end-user in an interoperable and REST-like manner.",
-    setupInstructions: <OidcSetup />,
-    diagram: <OAuth2Diagram />,
+    setupInstructions: OidcSetup,
+    diagram: OAuth2Diagram,
   },
   {
     slug: "saml",
@@ -136,8 +140,8 @@ export const authTypes: AuthType[] = [
     complexity: "High",
     protocols: "HTTP, SOAP",
     technicalExplanation: "Security Assertion Markup Language (SAML) is an XML-based open standard for exchanging authentication and authorization data between an Identity Provider (IdP) and a Service Provider (SP). It enables web-based Single Sign-On (SSO) by allowing the IdP, which holds the user's identity, to send a signed XML document, called a SAML Assertion, to the SP. The SP trusts this assertion to authenticate and authorize the user without needing direct access to the user's credentials.",
-    setupInstructions: <SamlSetup />,
-    diagram: <OAuth2Diagram />,
+    setupInstructions: SamlSetup,
+    diagram: OAuth2Diagram,
   },
   {
     slug: "multi-factor-authentication",
@@ -148,8 +152,8 @@ export const authTypes: AuthType[] = [
     complexity: "Medium",
     protocols: "Varies",
     technicalExplanation: "MFA provides layered security by requiring users to present at least two pieces of evidence (factors) to an authentication mechanism. These factors fall into three categories: Knowledge (something you know, like a password or PIN), Possession (something you have, like a phone app, SMS code, or hardware token), and Inherence (something you are, like a fingerprint or face scan). Requiring multiple factors makes it significantly harder for an unauthorized person to gain access.",
-    setupInstructions: <MfaSetup />,
-    diagram: <GenericAuthDiagram />,
+    setupInstructions: MfaSetup,
+    diagram: GenericAuthDiagram,
   },
   {
     slug: "biometric-authentication",
@@ -160,8 +164,8 @@ export const authTypes: AuthType[] = [
     complexity: "High",
     protocols: "Varies (FIDO/WebAuthn)",
     technicalExplanation: "Biometric authentication verifies identity using unique physical traits. In modern secure systems (like FIDO2/WebAuthn), the biometric data (e.g., fingerprint scan) never leaves the user's device. Instead, it is used locally to unlock a cryptographic private key stored in a secure element on the device. This private key then signs a challenge from the server, proving both possession of the device and the user's presence in a highly secure, private, and phishing-resistant manner.",
-    setupInstructions: <BiometricSetup />,
-    diagram: <GenericAuthDiagram />,
+    setupInstructions: BiometricSetup,
+    diagram: GenericAuthDiagram,
   },
   {
     slug: "kerberos-authentication",
@@ -172,8 +176,8 @@ export const authTypes: AuthType[] = [
     complexity: "High",
     protocols: "TCP/UDP",
     technicalExplanation: "Kerberos is a ticket-based protocol that uses a trusted third party, a Key Distribution Center (KDC), to provide strong, mutual authentication. A client authenticates once to the KDC to get a Ticket-Granting Ticket (TGT). The client then uses this TGT to request service tickets for specific applications without re-entering a password. This avoids sending passwords over the network and is the default authentication protocol in Windows Active Directory.",
-    setupInstructions: <KerberosSetup />,
-    diagram: <OAuth2Diagram />,
+    setupInstructions: KerberosSetup,
+    diagram: OAuth2Diagram,
   },
   {
     slug: "single-sign-on",
@@ -184,8 +188,8 @@ export const authTypes: AuthType[] = [
     complexity: "High",
     protocols: "SAML, OIDC",
     technicalExplanation: "SSO is an authentication scheme, not a specific protocol itself. It allows a user to log in once with a single set of credentials to a central Identity Provider (IdP) and gain access to multiple, separate applications without re-authenticating. This is achieved through federation protocols like SAML or OIDC. Applications (Service Providers) are configured to trust the IdP. When a user tries to access an SP, the SP redirects them to the IdP for authentication. After a successful login, the IdP sends a secure assertion back to the SP, which then grants the user access.",
-    setupInstructions: <SsoSetup />,
-    diagram: <OAuth2Diagram />,
+    setupInstructions: SsoSetup,
+    diagram: OAuth2Diagram,
   },
   {
     slug: "hmac-authentication",
@@ -196,8 +200,8 @@ export const authTypes: AuthType[] = [
     complexity: "Medium",
     protocols: "HTTP",
     technicalExplanation: "HMAC (Hash-based Message Authentication Code) verifies both the integrity and authenticity of a request. The client and server share a secret key. To make a request, the client creates a signature by hashing the request content (and often other parts like the URI and a timestamp) with the secret key using an algorithm like SHA256. The server performs the same calculation on the received message and compares its result to the signature sent by the client. If they match, the server knows the request is from a trusted source and hasn't been tampered with in transit.",
-    setupInstructions: <HmacSetup />,
-    diagram: <GenericAuthDiagram />,
+    setupInstructions: HmacSetup,
+    diagram: GenericAuthDiagram,
   },
   {
     slug: "ntlm-authentication",
@@ -208,8 +212,8 @@ export const authTypes: AuthType[] = [
     complexity: "High",
     protocols: "Varies",
     technicalExplanation: "NTLM (New Technology LAN Manager) is a legacy challenge-response protocol common in older Windows networks. It's known to be vulnerable to relay attacks and pass-the-hash attacks, and is not recommended for modern applications or use over the internet. It has been largely superseded by Kerberos in Active Directory environments. Its continued use is typically for backward compatibility with old applications or devices that do not support Kerberos.",
-    setupInstructions: <NtlmSetup />,
-    diagram: <GenericAuthDiagram />,
+    setupInstructions: NtlmSetup,
+    diagram: GenericAuthDiagram,
   },
   {
     slug: "ldap-authentication",
@@ -220,8 +224,8 @@ export const authTypes: AuthType[] = [
     complexity: "Medium",
     protocols: "LDAP",
     technicalExplanation: "Lightweight Directory Access Protocol (LDAP) is a protocol for accessing and maintaining distributed directory information services like Active Directory. For authentication, an application performs a 'bind' operation to the LDAP server. A simple bind with a user's Distinguished Name (DN) and password will succeed if the credentials are correct. This allows applications to centralize user management without storing passwords themselves. All communication must be encrypted via LDAPS (LDAP over SSL) or STARTTLS.",
-    setupInstructions: <LdapSetup />,
-    diagram: <GenericAuthDiagram />,
+    setupInstructions: LdapSetup,
+    diagram: GenericAuthDiagram,
   },
   {
     slug: "anonymous-authentication",
@@ -232,8 +236,8 @@ export const authTypes: AuthType[] = [
     complexity: "Low",
     protocols: "HTTP",
     technicalExplanation: "This isn't a form of authentication as much as a deliberate lack of it. The server is configured to allow access to specific resources without requiring any credentials. On the backend, the user might be assigned a generic, low-privilege 'anonymous' identity to standardize authorization checks. It's essential for any public-facing content and is the default state for most websites before a user logs in.",
-    setupInstructions: <AnonymousSetup />,
-    diagram: <GenericAuthDiagram />,
+    setupInstructions: AnonymousSetup,
+    diagram: GenericAuthDiagram,
   },
   {
     slug: "challenge-response-authentication",
@@ -244,8 +248,8 @@ export const authTypes: AuthType[] = [
     complexity: "Medium",
     protocols: "Varies",
     technicalExplanation: "This is a family of protocols where a secret (like a password or key) is never transmitted directly over the network. The verifier sends a random, single-use value (the challenge or 'nonce'). The claimant uses a shared secret to perform a cryptographic calculation with the nonce and sends the result (the response). The verifier performs the same calculation to validate the response. This prevents replay attacks, as a new challenge is used for each authentication attempt. Examples include Digest, NTLM, and parts of the Kerberos and WebAuthn flows.",
-    setupInstructions: <ChallengeResponseSetup />,
-    diagram: <GenericAuthDiagram />,
+    setupInstructions: ChallengeResponseSetup,
+    diagram: GenericAuthDiagram,
   },
   {
     slug: "smart-card-authentication",
@@ -256,8 +260,8 @@ export const authTypes: AuthType[] = [
     complexity: "High",
     protocols: "PKI",
     technicalExplanation: "A form of certificate-based authentication where the certificate and its private key are stored on a secure, tamper-resistant cryptographic chip in a physical card. This provides strong two-factor authentication: something you have (the card) and something you know (a PIN to unlock the card for use). The private key never leaves the card; instead, cryptographic operations like signing are performed on the card itself. This makes it extremely resistant to theft or malware on the host computer.",
-    setupInstructions: <SmartCardSetup />,
-    diagram: <GenericAuthDiagram />,
+    setupInstructions: SmartCardSetup,
+    diagram: GenericAuthDiagram,
   },
   {
     slug: "social-authentication",
@@ -268,8 +272,8 @@ export const authTypes: AuthType[] = [
     complexity: "Medium",
     protocols: "OAuth2, OIDC",
     technicalExplanation: "This is a user-friendly application of the OAuth 2.0 and OIDC protocols. Instead of creating a new account with a password for your site, users can log in using their existing credentials from a social provider like Google, GitHub, or Facebook. This simplifies registration, offloads password management to the trusted social provider, and can allow your application to request basic profile information (with user consent).",
-    setupInstructions: <SocialAuthSetup />,
-    diagram: <OAuth2Diagram />,
+    setupInstructions: SocialAuthSetup,
+    diagram: OAuth2Diagram,
   },
   {
     slug: "one-time-password",
@@ -280,8 +284,8 @@ export const authTypes: AuthType[] = [
     complexity: "Low",
     protocols: "Varies (SMS, App)",
     technicalExplanation: "An OTP is a temporary, dynamic code used for authentication. Common types include HOTP (counter-based) and TOTP (Time-based), which is used by apps like Google Authenticator. During setup, a shared secret is established between the server and the user's app (or device). Both then use this secret and a moving factor (the current time for TOTP, a counter for HOTP) to independently generate the same short-lived code. OTPs sent via SMS are also common but are less secure due to risks of SIM swapping.",
-    setupInstructions: <OtpSetup />,
-    diagram: <GenericAuthDiagram />,
+    setupInstructions: OtpSetup,
+    diagram: GenericAuthDiagram,
   },
   {
     slug: "zero-trust-authentication",
@@ -292,8 +296,8 @@ export const authTypes: AuthType[] = [
     complexity: "High",
     protocols: "Varies",
     technicalExplanation: "Zero Trust is a security architecture, not a single technology. It's built on the principle of 'never trust, always verify.' It assumes that any access request could be a threat, regardless of its origin (inside or outside the corporate network). Authentication and authorization are not one-time events but are re-evaluated continuously based on a rich set of signals, including user identity, device health and posture, location, and the sensitivity of the requested data. It moves security from the network perimeter to individual resources.",
-    setupInstructions: <ZeroTrustSetup />,
-    diagram: <GenericAuthDiagram />,
+    setupInstructions: ZeroTrustSetup,
+    diagram: GenericAuthDiagram,
   },
   {
     slug: "webauthn",
@@ -304,8 +308,8 @@ export const authTypes: AuthType[] = [
     complexity: "High",
     protocols: "WebAuthn API",
     technicalExplanation: "WebAuthn is a W3C standard that enables passwordless and phishing-resistant authentication. It allows websites to use built-in authenticators (like Touch ID, Face ID, Windows Hello) or external security keys (like YubiKeys) for login. It uses public-key cryptography where a private key, securely stored on the user's authenticator, is used to sign a challenge from the server. The server verifies this signature with the corresponding public key. This proves user possession of the authenticator and is scoped per-origin, preventing phishing.",
-    setupInstructions: <WebAuthnSetup />,
-    diagram: <GenericAuthDiagram />,
+    setupInstructions: WebAuthnSetup,
+    diagram: GenericAuthDiagram,
   },
   {
     slug: "mutual-tls",
@@ -316,8 +320,8 @@ export const authTypes: AuthType[] = [
     complexity: "High",
     protocols: "TLS",
     technicalExplanation: "In standard TLS (used in HTTPS), only the client verifies the server's certificate to ensure it's talking to the right server. In mTLS, this verification is bidirectional. The server also requests and validates the client's certificate during the initial TLS handshake. This provides strong, cryptographic proof of identity for both parties in a connection before any application data (like HTTP requests) is exchanged. It is ideal for non-interactive systems like microservices or IoT devices.",
-    setupInstructions: <MutualTlsSetup />,
-    diagram: <GenericAuthDiagram />,
+    setupInstructions: MutualTlsSetup,
+    diagram: GenericAuthDiagram,
   },
   {
     slug: "delegated-authentication",
@@ -328,7 +332,7 @@ export const authTypes: AuthType[] = [
     complexity: "High",
     protocols: "SAML, OAuth2, OIDC",
     technicalExplanation: "This is a broad architectural pattern that underpins SSO, social logins, and enterprise federation. An application (the Service Provider) chooses not to manage user credentials itself. Instead, it delegates the entire authentication process to a dedicated, trusted Identity Provider (IdP). The application establishes a trust relationship with the IdP (via a protocol like SAML or OIDC) and consumes security tokens (like SAML assertions or OIDC ID tokens) to log users in. This centralizes identity management and improves security.",
-    setupInstructions: <DelegatedAuthSetup />,
-    diagram: <OAuth2Diagram />,
+    setupInstructions: DelegatedAuthSetup,
+    diagram: OAuth2Diagram,
   },
 ];

@@ -9,6 +9,9 @@ type AuthTypeDetailPageProps = {
 };
 
 export function AuthTypeDetailPage({ authType }: AuthTypeDetailPageProps) {
+  const SetupComponent = authType.setupInstructions;
+  const DiagramComponent = authType.diagram;
+
   return (
     <div className="space-y-8">
       <header>
@@ -43,7 +46,7 @@ export function AuthTypeDetailPage({ authType }: AuthTypeDetailPageProps) {
                 </CardContent>
             </Card>
             
-            <AuthFlowDiagram diagram={authType.diagram} />
+            <AuthFlowDiagram diagram={<DiagramComponent />} />
         </div>
 
         <div className="lg:col-span-1 space-y-8">
@@ -52,7 +55,7 @@ export function AuthTypeDetailPage({ authType }: AuthTypeDetailPageProps) {
                     <CardTitle>Setup Instructions</CardTitle>
                 </CardHeader>
                 <CardContent className="text-sm space-y-2 text-muted-foreground">
-                   {authType.setupInstructions}
+                   <SetupComponent />
                 </CardContent>
             </Card>
             
