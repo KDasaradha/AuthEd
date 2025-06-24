@@ -53,14 +53,13 @@ export function SideNav({ isMobile = false }: { isMobile?: boolean }) {
                 <SidebarMenu>
                   {mainLinks.map((link) => (
                     <SidebarMenuItem key={link.href}>
-                      <Link href={link.href} legacyBehavior passHref>
-                        <SidebarMenuButton
-                          onClick={handleLinkClick}
-                          isActive={pathname === link.href}
-                        >
-                          {link.label}
-                        </SidebarMenuButton>
-                      </Link>
+                      <SidebarMenuButton
+                        asChild
+                        onClick={handleLinkClick}
+                        isActive={pathname === link.href}
+                      >
+                        <Link href={link.href}>{link.label}</Link>
+                      </SidebarMenuButton>
                     </SidebarMenuItem>
                   ))}
                 </SidebarMenu>
@@ -72,16 +71,17 @@ export function SideNav({ isMobile = false }: { isMobile?: boolean }) {
             <SidebarMenu>
               {filteredAuthTypes.map((type) => (
                 <SidebarMenuItem key={type.slug}>
-                  <Link href={`/auth-types/${type.slug}`} legacyBehavior passHref>
-                    <SidebarMenuButton
-                      onClick={handleLinkClick}
-                      isActive={pathname === `/auth-types/${type.slug}`}
-                      className="justify-start"
-                      tooltip={type.name}
-                    >
+                  <SidebarMenuButton
+                    asChild
+                    onClick={handleLinkClick}
+                    isActive={pathname === `/auth-types/${type.slug}`}
+                    className="justify-start"
+                    tooltip={type.name}
+                  >
+                    <Link href={`/auth-types/${type.slug}`}>
                       <span className="truncate">{type.name}</span>
-                    </SidebarMenuButton>
-                  </Link>
+                    </Link>
+                  </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
                {filteredAuthTypes.length === 0 && (
