@@ -1,6 +1,6 @@
 import type { AuthType } from './types';
 
-const PlaceholderDiagram = () => (
+const OAuth2Diagram = () => (
     <svg width="100%" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" className="bg-gray-50 rounded">
         <g className="font-sans">
             <rect x="50" y="50" width="120" height="40" rx="5" fill="hsl(var(--primary))" stroke="hsl(var(--border))" />
@@ -17,21 +17,109 @@ const PlaceholderDiagram = () => (
             <path d="M 690 120 V 300" stroke="hsl(var(--muted-foreground))" strokeDasharray="5,5" />
 
             <g transform="translate(0, 20)">
-                <path d="M 110 130 H 390" stroke="hsl(var(--accent))" strokeWidth="2" markerEnd="url(#arrow)" />
+                <path d="M 110 130 H 390" stroke="hsl(var(--accent))" strokeWidth="2" markerEnd="url(#arrow-oauth)" />
                 <text x="250" y="125" textAnchor="middle" fill="hsl(var(--foreground))" className="text-sm">1. Request Access</text>
 
-                <path d="M 410 170 H 680" stroke="hsl(var(--accent))" strokeWidth="2" markerEnd="url(#arrow)" />
+                <path d="M 410 170 H 680" stroke="hsl(var(--accent))" strokeWidth="2" markerEnd="url(#arrow-oauth)" />
                 <text x="545" y="165" textAnchor="middle" fill="hsl(var(--foreground))" className="text-sm">2. Redirect to Login</text>
 
-                <path d="M 680 210 H 410" stroke="hsl(var(--accent))" strokeWidth="2" markerEnd="url(#arrow)" />
+                <path d="M 680 210 H 410" stroke="hsl(var(--accent))" strokeWidth="2" markerEnd="url(#arrow-oauth)" />
                 <text x="545" y="205" textAnchor="middle" fill="hsl(var(--foreground))" className="text-sm">3. Credentials / Token</text>
 
-                <path d="M 390 250 H 110" stroke="hsl(var(--accent))" strokeWidth="2" markerEnd="url(#arrow)" />
+                <path d="M 390 250 H 110" stroke="hsl(var(--accent))" strokeWidth="2" markerEnd="url(#arrow-oauth)" />
                 <text x="250" y="245" textAnchor="middle" fill="hsl(var(--foreground))" className="text-sm">4. Access Granted</text>
             </g>
         </g>
         <defs>
-            <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <marker id="arrow-oauth" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="hsl(var(--accent))" />
+            </marker>
+        </defs>
+    </svg>
+);
+
+const BasicAuthDiagram = () => (
+    <svg width="100%" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" className="bg-gray-50 rounded">
+        <g className="font-sans">
+            <rect x="150" y="50" width="120" height="40" rx="5" fill="hsl(var(--primary))" stroke="hsl(var(--border))" />
+            <text x="210" y="75" textAnchor="middle" fill="hsl(var(--primary-foreground))">Client App</text>
+            
+            <rect x="530" y="50" width="120" height="40" rx="5" fill="hsl(var(--primary))" stroke="hsl(var(--border))" />
+            <text x="590" y="75" textAnchor="middle" fill="hsl(var(--primary-foreground))">API Server</text>
+
+            <path d="M 210 90 V 250" stroke="hsl(var(--muted-foreground))" strokeDasharray="5,5" />
+            <path d="M 590 90 V 250" stroke="hsl(var(--muted-foreground))" strokeDasharray="5,5" />
+
+            <g>
+                <path d="M 220 130 H 580" stroke="hsl(var(--accent))" strokeWidth="2" markerEnd="url(#arrow-basic)" />
+                <text x="400" y="125" textAnchor="middle" fill="hsl(var(--foreground))" className="text-sm">1. Request with Authorization Header</text>
+                <text x="400" y="145" textAnchor="middle" fill="hsl(var(--muted-foreground))" className="text-xs">Authorization: Basic base64(user:pass)</text>
+
+                <path d="M 580 190 H 220" stroke="hsl(var(--accent))" strokeWidth="2" markerEnd="url(#arrow-basic)" />
+                <text x="400" y="185" textAnchor="middle" fill="hsl(var(--foreground))" className="text-sm">2. Response (200 OK or 401 Unauthorized)</text>
+            </g>
+        </g>
+        <defs>
+            <marker id="arrow-basic" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="hsl(var(--accent))" />
+            </marker>
+        </defs>
+    </svg>
+);
+
+const ApiKeyDiagram = () => (
+    <svg width="100%" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" className="bg-gray-50 rounded">
+        <g className="font-sans">
+            <rect x="150" y="50" width="120" height="40" rx="5" fill="hsl(var(--primary))" stroke="hsl(var(--border))" />
+            <text x="210" y="75" textAnchor="middle" fill="hsl(var(--primary-foreground))">Client App</text>
+            
+            <rect x="530" y="50" width="120" height="40" rx="5" fill="hsl(var(--primary))" stroke="hsl(var(--border))" />
+            <text x="590" y="75" textAnchor="middle" fill="hsl(var(--primary-foreground))">API Server</text>
+
+            <path d="M 210 90 V 250" stroke="hsl(var(--muted-foreground))" strokeDasharray="5,5" />
+            <path d="M 590 90 V 250" stroke="hsl(var(--muted-foreground))" strokeDasharray="5,5" />
+
+            <g>
+                <path d="M 220 130 H 580" stroke="hsl(var(--accent))" strokeWidth="2" markerEnd="url(#arrow-apikey)" />
+                <text x="400" y="125" textAnchor="middle" fill="hsl(var(--foreground))" className="text-sm">1. Request with API Key Header</text>
+                <text x="400" y="145" textAnchor="middle" fill="hsl(var(--muted-foreground))" className="text-xs">X-API-Key: your-api-key</text>
+
+                <path d="M 580 190 H 220" stroke="hsl(var(--accent))" strokeWidth="2" markerEnd="url(#arrow-apikey)" />
+                <text x="400" y="185" textAnchor="middle" fill="hsl(var(--foreground))" className="text-sm">2. Response (200 OK or 401 Unauthorized)</text>
+            </g>
+        </g>
+        <defs>
+            <marker id="arrow-apikey" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="hsl(var(--accent))" />
+            </marker>
+        </defs>
+    </svg>
+);
+
+const GenericAuthDiagram = () => (
+    <svg width="100%" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" className="bg-gray-50 rounded">
+        <g className="font-sans">
+            <rect x="150" y="50" width="120" height="40" rx="5" fill="hsl(var(--primary))" stroke="hsl(var(--border))" />
+            <text x="210" y="75" textAnchor="middle" fill="hsl(var(--primary-foreground))">Client</text>
+            
+            <rect x="530" y="50" width="120" height="40" rx="5" fill="hsl(var(--primary))" stroke="hsl(var(--border))" />
+            <text x="590" y="75" textAnchor="middle" fill="hsl(var(--primary-foreground))">Server</text>
+
+            <path d="M 210 90 V 250" stroke="hsl(var(--muted-foreground))" strokeDasharray="5,5" />
+            <path d="M 590 90 V 250" stroke="hsl(var(--muted-foreground))" strokeDasharray="5,5" />
+
+            <g>
+                <path d="M 220 130 H 580" stroke="hsl(var(--accent))" strokeWidth="2" markerEnd="url(#arrow-generic)" />
+                <text x="400" y="125" textAnchor="middle" fill="hsl(var(--foreground))" className="text-sm">1. Authentication Request</text>
+                <text x="400" y="145" textAnchor="middle" fill="hsl(var(--muted-foreground))" className="text-xs">(e.g., credentials, token, certificate)</text>
+
+                <path d="M 580 190 H 220" stroke="hsl(var(--accent))" strokeWidth="2" markerEnd="url(#arrow-generic)" />
+                <text x="400" y="185" textAnchor="middle" fill="hsl(var(--foreground))" className="text-sm">2. Authentication Response</text>
+                <text x="400" y="205" textAnchor="middle" fill="hsl(var(--muted-foreground))" className="text-xs">(e.g., session, token, success/failure)</text>
+            </g>
+        </g>
+        <defs>
+            <marker id="arrow-generic" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                 <path d="M 0 0 L 10 5 L 0 10 z" fill="hsl(var(--accent))" />
             </marker>
         </defs>
@@ -60,7 +148,7 @@ export const authTypes: AuthType[] = [
     protocols: "HTTP",
     technicalExplanation: "HTTP Basic Authentication sends a Base64-encoded string of 'username:password' in the Authorization header. It is not secure over HTTP as it can be easily decoded.",
     setupInstructions: genericSetup,
-    diagram: <PlaceholderDiagram />
+    diagram: <BasicAuthDiagram />
   },
   {
     slug: "token-based-authentication",
@@ -72,7 +160,7 @@ export const authTypes: AuthType[] = [
     protocols: "HTTP, WebSocket",
     technicalExplanation: "JSON Web Tokens (JWT) are self-contained tokens that can be used to securely transmit information between parties. The server generates a token that certifies the user identity, and the client sends this token with every request.",
     setupInstructions: genericSetup,
-    diagram: <PlaceholderDiagram />
+    diagram: <GenericAuthDiagram />
   },
   {
     slug: "oauth2-authentication",
@@ -84,7 +172,7 @@ export const authTypes: AuthType[] = [
     protocols: "HTTP",
     technicalExplanation: "OAuth2 allows applications to obtain limited access to user accounts on an HTTP service. It delegates user authentication to the service that hosts the user account, and authorizes third-party applications to access the user account.",
     setupInstructions: genericSetup,
-    diagram: <PlaceholderDiagram />
+    diagram: <OAuth2Diagram />
   },
   {
     slug: "session-based-authentication",
@@ -96,7 +184,7 @@ export const authTypes: AuthType[] = [
     protocols: "HTTP (Cookies)",
     technicalExplanation: "The server creates a session for the user upon login, stores session-specific data, and sends a session ID back to the client as a cookie. The client sends this cookie with each request to identify itself.",
     setupInstructions: genericSetup,
-    diagram: <PlaceholderDiagram />
+    diagram: <GenericAuthDiagram />
   },
   {
     slug: "api-key-authentication",
@@ -108,7 +196,7 @@ export const authTypes: AuthType[] = [
     protocols: "HTTP",
     technicalExplanation: "The client sends a unique API key, typically in a request header (e.g., X-API-Key), to identify the calling application. It's simple but less secure as the key can be compromised.",
     setupInstructions: genericSetup,
-    diagram: <PlaceholderDiagram />
+    diagram: <ApiKeyDiagram />
   },
   {
     slug: "digest-authentication",
@@ -120,7 +208,7 @@ export const authTypes: AuthType[] = [
     protocols: "HTTP",
     technicalExplanation: "An improvement on Basic Auth, Digest Authentication sends a hash of the password combined with a server-provided nonce over the network, avoiding sending the password in cleartext.",
     setupInstructions: genericSetup,
-    diagram: <PlaceholderDiagram />
+    diagram: <GenericAuthDiagram />
   },
   {
     slug: "certificate-based-authentication",
@@ -132,7 +220,7 @@ export const authTypes: AuthType[] = [
     protocols: "TLS/SSL",
     technicalExplanation: "The client presents a digital certificate to the server during the TLS handshake. The server verifies the certificate's validity and issuer to authenticate the client, enabling strong, passwordless authentication.",
     setupInstructions: genericSetup,
-    diagram: <PlaceholderDiagram />
+    diagram: <GenericAuthDiagram />
   },
   {
     slug: "openid-connect",
@@ -144,7 +232,7 @@ export const authTypes: AuthType[] = [
     protocols: "HTTP, OAuth2",
     technicalExplanation: "OIDC is a simple identity layer built on top of the OAuth 2.0 protocol. It allows clients to verify the identity of the end-user based on the authentication performed by an Authorization Server, and obtain basic profile information.",
     setupInstructions: genericSetup,
-    diagram: <PlaceholderDiagram />
+    diagram: <OAuth2Diagram />
   },
   {
     slug: "saml",
@@ -156,7 +244,7 @@ export const authTypes: AuthType[] = [
     protocols: "HTTP, SOAP",
     technicalExplanation: "Security Assertion Markup Language (SAML) is an open standard that enables identity providers (IdP) to pass authorization credentials to service providers (SP). This allows for single sign-on (SSO) across different domains.",
     setupInstructions: genericSetup,
-    diagram: <PlaceholderDiagram />
+    diagram: <OAuth2Diagram />
   },
   {
     slug: "multi-factor-authentication",
@@ -168,7 +256,7 @@ export const authTypes: AuthType[] = [
     protocols: "Varies",
     technicalExplanation: "MFA enhances security by requiring users to provide multiple forms of verification, such as something they know (password), something they have (phone), and something they are (biometric).",
     setupInstructions: genericSetup,
-    diagram: <PlaceholderDiagram />
+    diagram: <GenericAuthDiagram />
   },
   {
     slug: "biometric-authentication",
@@ -180,7 +268,7 @@ export const authTypes: AuthType[] = [
     protocols: "Varies (FIDO/WebAuthn)",
     technicalExplanation: "Biometric authentication verifies a user's identity through unique biological traits. This demo uses a mock implementation to simulate the flow.",
     setupInstructions: genericSetup,
-    diagram: <PlaceholderDiagram />
+    diagram: <GenericAuthDiagram />
   },
   {
     slug: "kerberos-authentication",
@@ -192,7 +280,7 @@ export const authTypes: AuthType[] = [
     protocols: "TCP/UDP",
     technicalExplanation: "Kerberos uses a trusted third party, called a Key Distribution Center (KDC), to issue 'tickets' to clients. Clients then use these tickets to prove their identity to servers without sending passwords over the network.",
     setupInstructions: genericSetup,
-    diagram: <PlaceholderDiagram />
+    diagram: <OAuth2Diagram />
   },
   {
     slug: "single-sign-on",
@@ -204,7 +292,7 @@ export const authTypes: AuthType[] = [
     protocols: "SAML, OIDC",
     technicalExplanation: "SSO allows a user to log in with a single ID and password to gain access to a connected system or systems of systems without being prompted for different usernames or passwords.",
     setupInstructions: genericSetup,
-    diagram: <PlaceholderDiagram />
+    diagram: <OAuth2Diagram />
   },
   {
     slug: "hmac-authentication",
@@ -216,7 +304,7 @@ export const authTypes: AuthType[] = [
     protocols: "HTTP",
     technicalExplanation: "Hash-based Message Authentication Code (HMAC) is a type of message authentication code (MAC) involving a cryptographic hash function in combination with a secret cryptographic key.",
     setupInstructions: genericSetup,
-    diagram: <PlaceholderDiagram />
+    diagram: <GenericAuthDiagram />
   },
   {
     slug: "ntlm-authentication",
@@ -228,7 +316,7 @@ export const authTypes: AuthType[] = [
     protocols: "Varies",
     technicalExplanation: "NTLM is a challenge-response authentication protocol used in Windows networks. It is now considered insecure and has been largely replaced by Kerberos.",
     setupInstructions: genericSetup,
-    diagram: <PlaceholderDiagram />
+    diagram: <GenericAuthDiagram />
   },
   {
     slug: "ldap-authentication",
@@ -240,7 +328,7 @@ export const authTypes: AuthType[] = [
     protocols: "LDAP",
     technicalExplanation: "Lightweight Directory Access Protocol (LDAP) is used to look up user information in a central directory. Authentication is done by binding to the LDAP server with the user's credentials.",
     setupInstructions: genericSetup,
-    diagram: <PlaceholderDiagram />
+    diagram: <GenericAuthDiagram />
   },
   {
     slug: "anonymous-authentication",
@@ -252,7 +340,7 @@ export const authTypes: AuthType[] = [
     protocols: "HTTP",
     technicalExplanation: "Allows users to access resources without providing any credentials. It's suitable for public content where user identity is not required.",
     setupInstructions: genericSetup,
-    diagram: <PlaceholderDiagram />
+    diagram: <GenericAuthDiagram />
   },
   {
     slug: "challenge-response-authentication",
@@ -264,7 +352,7 @@ export const authTypes: AuthType[] = [
     protocols: "Varies",
     technicalExplanation: "The server sends a random piece of data (the challenge) to the client. The client combines this with a secret (like a password) and hashes it to produce a response, which is sent back for verification.",
     setupInstructions: genericSetup,
-    diagram: <PlaceholderDiagram />
+    diagram: <GenericAuthDiagram />
   },
   {
     slug: "smart-card-authentication",
@@ -276,7 +364,7 @@ export const authTypes: AuthType[] = [
     protocols: "PKI",
     technicalExplanation: "A user inserts a smart card into a reader and may enter a PIN. The card contains a digital certificate that is used to authenticate the user. This demo uses a mock implementation.",
     setupInstructions: genericSetup,
-    diagram: <PlaceholderDiagram />
+    diagram: <GenericAuthDiagram />
   },
   {
     slug: "social-authentication",
@@ -288,7 +376,7 @@ export const authTypes: AuthType[] = [
     protocols: "OAuth2, OIDC",
     technicalExplanation: "A form of single sign-on using existing information from a social networking service like Facebook, Google, or Twitter to sign into a third-party website, instead of creating a new login account specifically for that website.",
     setupInstructions: genericSetup,
-    diagram: <PlaceholderDiagram />
+    diagram: <OAuth2Diagram />
   },
   {
     slug: "one-time-password",
@@ -300,7 +388,7 @@ export const authTypes: AuthType[] = [
     protocols: "Varies (SMS, App)",
     technicalExplanation: "An OTP is a password that is automatically generated to be used for a single access attempt. It's a common factor in MFA systems and can be delivered via SMS, email, or an authenticator app.",
     setupInstructions: genericSetup,
-    diagram: <PlaceholderDiagram />
+    diagram: <GenericAuthDiagram />
   },
   {
     slug: "zero-trust-authentication",
@@ -312,7 +400,7 @@ export const authTypes: AuthType[] = [
     protocols: "Varies",
     technicalExplanation: "A security model based on the principle of 'never trust, always verify.' It requires strict identity verification for every person and device trying to access resources on a private network, regardless of whether they are sitting within or outside of the network perimeter.",
     setupInstructions: genericSetup,
-    diagram: <PlaceholderDiagram />
+    diagram: <GenericAuthDiagram />
   },
   {
     slug: "webauthn",
@@ -324,7 +412,7 @@ export const authTypes: AuthType[] = [
     protocols: "WebAuthn API",
     technicalExplanation: "WebAuthn allows servers to register and authenticate users using public-key cryptography instead of a password. It is supported by major browsers and platforms and can use authenticators like security keys or biometrics.",
     setupInstructions: genericSetup,
-    diagram: <PlaceholderDiagram />
+    diagram: <GenericAuthDiagram />
   },
   {
     slug: "mutual-tls",
@@ -336,7 +424,7 @@ export const authTypes: AuthType[] = [
     protocols: "TLS",
     technicalExplanation: "In standard TLS, only the client verifies the server. In Mutual TLS, the server also verifies the client's identity by requesting a client certificate during the handshake, ensuring both parties are who they claim to be.",
     setupInstructions: genericSetup,
-    diagram: <PlaceholderDiagram />
+    diagram: <GenericAuthDiagram />
   },
   {
     slug: "delegated-authentication",
@@ -348,6 +436,6 @@ export const authTypes: AuthType[] = [
     protocols: "SAML, OAuth2, OIDC",
     technicalExplanation: "Instead of managing user credentials, an application delegates the authentication process to a centralized, trusted Identity Provider (IdP). This is the core principle behind protocols like SAML and OpenID Connect.",
     setupInstructions: genericSetup,
-    diagram: <PlaceholderDiagram />
+    diagram: <OAuth2Diagram />
   }
 ];
