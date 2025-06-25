@@ -57,49 +57,55 @@ export function AuthTypesPage() {
         <header className="space-y-2">
             <h1 className="text-4xl font-bold tracking-tight">Authentication Types</h1>
             <p className="mt-2 text-lg text-muted-foreground">
-                Explore our comprehensive library of 25 authentication methods. Use the filters to find the right solution for your needs.
+                Explore our comprehensive library of 25+ authentication methods. Use the filters to find the right solution for your needs.
             </p>
         </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="md:col-span-1">
-                <Label htmlFor="search" className="sr-only">Search</Label>
-                <div className="relative">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input
-                        id="search"
-                        placeholder="Search by name..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="pl-10"
-                    />
-                </div>
+        <div className="border rounded-lg p-4 bg-card/50">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="space-y-2">
+              <Label htmlFor="search">Search by Keyword</Label>
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  id="search"
+                  placeholder="e.g. OAuth, Token..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10"
+                />
+              </div>
             </div>
-            <div>
-                <Label htmlFor="security" className="sr-only">Security Level</Label>
-                <Select value={filters.security} onValueChange={(value) => handleFilterChange('security', value)}>
-                    <SelectTrigger id="security"><SelectValue placeholder="Filter by security" /></SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="all">All Security Levels</SelectItem>
-                        <SelectItem value="High">High</SelectItem>
-                        <SelectItem value="Medium">Medium</SelectItem>
-                        <SelectItem value="Low">Low</SelectItem>
-                    </SelectContent>
-                </Select>
+            <div className="space-y-2">
+              <Label htmlFor="security">Security Level</Label>
+              <Select value={filters.security} onValueChange={(value) => handleFilterChange('security', value)}>
+                <SelectTrigger id="security"><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Security Levels</SelectItem>
+                  <SelectItem value="High">High</SelectItem>
+                  <SelectItem value="Medium">Medium</SelectItem>
+                  <SelectItem value="Low">Low</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
-            <div>
-                <Label htmlFor="complexity" className="sr-only">Complexity</Label>
-                <Select value={filters.complexity} onValueChange={(value) => handleFilterChange('complexity', value)}>
-                    <SelectTrigger id="complexity"><SelectValue placeholder="Filter by complexity" /></SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="all">All Complexities</SelectItem>
-                        <SelectItem value="High">High</SelectItem>
-                        <SelectItem value="Medium">Medium</SelectItem>
-                        <SelectItem value="Low">Low</SelectItem>
-                    </SelectContent>
-                </Select>
+            <div className="space-y-2">
+              <Label htmlFor="complexity">Implementation Complexity</Label>
+              <Select value={filters.complexity} onValueChange={(value) => handleFilterChange('complexity', value)}>
+                <SelectTrigger id="complexity"><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Complexities</SelectItem>
+                  <SelectItem value="High">High</SelectItem>
+                  <SelectItem value="Medium">Medium</SelectItem>
+                  <SelectItem value="Low">Low</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
+          </div>
         </div>
+        
+        <p className="text-sm text-muted-foreground">
+            Showing <span className="font-bold text-foreground">{filteredTypes.length}</span> of {authTypes.length} authentication methods.
+        </p>
 
         {filteredTypes.length > 0 ? (
             <motion.div 
