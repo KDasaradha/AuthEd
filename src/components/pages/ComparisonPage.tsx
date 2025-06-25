@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import type { AuthType } from '@/lib/types';
 import { authTypes } from "@/lib/auth-types-data";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
@@ -9,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
 
-type SortableKeys = 'name' | 'security' | 'complexity' | 'statefulness';
+type SortableKeys = 'name' | 'security' | 'complexity' | 'statefulness' | 'phishingResistance' | 'ux';
 type SortDirection = 'ascending' | 'descending';
 
 type SortConfig = {
@@ -30,6 +31,9 @@ const statefulnessMap: Record<string, string> = {
 
 const securityOrder: Record<string, number> = { 'Low': 1, 'Medium': 2, 'High': 3 };
 const complexityOrder: Record<string, number> = { 'Low': 1, 'Medium': 2, 'High': 3 };
+const phishingResistanceOrder: Record<string, number> = { 'N/A': 0, 'Low': 1, 'Medium': 2, 'High': 3 };
+const uxOrder: Record<string, number> = { 'N/A': 0, 'High Friction': 1, 'Medium Friction': 2, 'Low Friction': 3 };
+
 
 export function ComparisonPage() {
   const [sortConfig, setSortConfig] = useState<SortConfig>({ key: 'name', direction: 'ascending' });
@@ -46,7 +50,7 @@ export function ComparisonPage() {
     if (sortConfig !== null) {
       sortableItems.sort((a, b) => {
         const key = sortConfig.key;
-        let aValue, bValue;
+        let aValue: string | number, bValue: string | number;
 
         if (key === 'security') {
           aValue = securityOrder[a.security];
@@ -54,9 +58,15 @@ export function ComparisonPage() {
         } else if (key === 'complexity') {
           aValue = complexityOrder[a.complexity];
           bValue = complexityOrder[b.complexity];
+        } else if (key === 'phishingResistance') {
+            aValue = phishingResistanceOrder[a.phishingResistance];
+            bValue = phishingResistanceOrder[b.phishingResistance];
+        } else if (key === 'ux') {
+            aValue = uxOrder[a.ux];
+            bValue = uxOrder[b.ux];
         } else {
-          aValue = a[key].toLowerCase();
-          bValue = b[key].toLowerCase();
+          aValue = a[key].toString().toLowerCase();
+          bValue = b[key].toString().toLowerCase();
         }
 
         if (aValue < bValue) {
@@ -88,10 +98,29 @@ export function ComparisonPage() {
   
   const headers: { key: SortableKeys; label: string; tooltip: string; className?: string }[] = [
       { key: 'name', label: 'Auth Type', tooltip: 'Name of the authentication method.' },
-      { key: 'security', label: 'Security', tooltip: 'General security level provided.' },
+      { key: 'security', label: 'Security', tooltip: 'General security level provided against attacks.' },
+      { key: 'phishingResistance', label: 'Phishing Resistance', tooltip: 'How well the method protects against phishing attacks.', className: 'hidden md:table-cell' },
+      { key: 'ux', label: 'User Experience', tooltip: 'Typical friction for the end-user during authentication.', className: 'hidden md:table-cell' },
       { key: 'complexity', label: 'Complexity', tooltip: 'Typical implementation and maintenance complexity.' },
       { key: 'statefulness', label: 'Statefulness', tooltip: 'Whether the server needs to store session state.', className: 'hidden lg:table-cell' },
   ];
+
+  const getPhishingBadgeVariant = (resistance: AuthType['phishingResistance']) => {
+    switch (resistance) {
+      case 'High': return 'destructive';
+      case 'Medium': return 'default';
+      default: return 'secondary';
+    }
+  };
+
+  const getUxBadgeVariant = (ux: AuthType['ux']) => {
+    switch (ux) {
+      case 'Low Friction': return 'default';
+      case 'Medium Friction': return 'secondary';
+      case 'High Friction': return 'destructive';
+      default: return 'outline';
+    }
+  }
 
   return (
     <TooltipProvider>
@@ -120,8 +149,8 @@ export function ComparisonPage() {
                       </Button>
                     </TableHead>
                 ))}
-                <TableHead className="font-headline hidden md:table-cell">Protocols</TableHead>
-                <TableHead className="font-headline hidden xl:table-cell">Common Use Case</TableHead>
+                <TableHead className="hidden lg:table-cell">Credential Type</TableHead>
+                <TableHead className="hidden xl:table-cell">Standardization</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -137,12 +166,22 @@ export function ComparisonPage() {
                       {type.security}
                     </Badge>
                   </TableCell>
+                  <TableCell className="hidden md:table-cell">
+                    <Badge variant={getPhishingBadgeVariant(type.phishingResistance)}>
+                      {type.phishingResistance}
+                    </Badge>
+                  </TableCell>
+                  <TableCell className="hidden md:table-cell">
+                     <Badge variant={getUxBadgeVariant(type.ux)}>
+                        {type.ux}
+                      </Badge>
+                  </TableCell>
                   <TableCell>
                     <Badge variant="outline">{type.complexity}</Badge>
                   </TableCell>
                   <TableCell className="hidden lg:table-cell">{type.statefulness}</TableCell>
-                  <TableCell className="hidden md:table-cell text-sm text-muted-foreground">{type.protocols}</TableCell>
-                  <TableCell className="hidden xl:table-cell text-sm text-muted-foreground">{type.useCase}</TableCell>
+                  <TableCell className="hidden lg:table-cell text-sm text-muted-foreground">{type.credentialType}</TableCell>
+                  <TableCell className="hidden xl:table-cell text-sm text-muted-foreground">{type.standardization}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
