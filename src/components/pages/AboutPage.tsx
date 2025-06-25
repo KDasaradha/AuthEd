@@ -51,9 +51,9 @@ export function AboutPage() {
   return (
     <div className="space-y-12">
       <header className="text-center">
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tighter">About AuthEd</h1>
+        <h1 className="text-4xl md:text-5xl font-bold tracking-tighter">About AuthShowcase</h1>
         <p className="max-w-3xl mx-auto mt-3 text-lg text-muted-foreground">
-          An educational platform designed to demystify the complex world of digital authentication and authorization.
+          A developer-centric platform to learn, visualize & experiment with 25+ authentication types.
         </p>
       </header>
       
@@ -63,7 +63,7 @@ export function AboutPage() {
         </CardHeader>
         <CardContent className="space-y-4 text-muted-foreground">
           <p>
-            AuthEd's primary objective is to provide developers, students, and security enthusiasts with a clear, comprehensive, and interactive resource to understand critical security concepts. We aim to bridge the gap between theory and practice.
+            AuthShowcase's primary objective is to provide developers, students, and security enthusiasts with a clear, comprehensive, and interactive resource to understand critical security concepts. We aim to bridge the gap between theory and practice.
           </p>
           <p>
             This project serves as a functional frontend companion to a FastAPI backend project, demonstrating 25 distinct authentication types in a practical, hands-on manner. It's built to be both an educational tool and a reference guide.

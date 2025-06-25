@@ -9,10 +9,10 @@ import { ThemeProvider } from '@/components/ThemeProvider';
 
 export const metadata: Metadata = {
   title: {
-    default: 'AuthEd: Authentication & Authorization Explained',
-    template: '%s | AuthEd',
+    default: 'AuthShowcase: Learn, Visualize & Experiment with Authentication',
+    template: '%s | AuthShowcase',
   },
-  description: 'An educational platform to learn about 25 authentication types, understand the difference between authentication and authorization, with interactive demos and technical deep dives.',
+  description: 'A developer-centric platform to learn, visualize, and experiment with 25+ authentication types, featuring interactive demos and modern design.',
 };
 
 export default function RootLayout({

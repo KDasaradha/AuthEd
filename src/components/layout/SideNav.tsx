@@ -38,7 +38,7 @@ export function SideNav({ isMobile = false }: { isMobile?: boolean }) {
         <SidebarHeader className='p-4 border-b'>
           <Link href="/" className="flex items-center space-x-2">
             <KeyRound className="h-6 w-6 text-primary" />
-            <SheetTitle className="font-bold font-headline text-lg p-0 m-0">AuthEd</SheetTitle>
+            <SheetTitle className="font-bold font-headline text-lg p-0 m-0">AuthShowcase</SheetTitle>
           </Link>
         </SidebarHeader>
       )}

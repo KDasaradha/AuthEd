@@ -19,7 +19,7 @@ export function Header() {
         <div className="mr-4 hidden md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
             <KeyRound className="h-6 w-6 text-primary" />
-            <span className="font-bold font-headline">AuthEd</span>
+            <span className="font-bold font-headline">AuthShowcase</span>
           </Link>
           <nav className="flex items-center space-x-6 text-sm font-medium">
             {navLinks.map((link) => (
@@ -49,7 +49,7 @@ export function Header() {
             </Sheet>
             <Link href="/" className="ml-4 flex items-center space-x-2">
               <KeyRound className="h-6 w-6 text-primary" />
-              <span className="font-bold font-headline">AuthEd</span>
+              <span className="font-bold font-headline">AuthShowcase</span>
             </Link>
           </div>
           <div className="flex items-center gap-2">
