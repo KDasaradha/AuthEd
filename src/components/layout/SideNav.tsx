@@ -8,6 +8,7 @@ import { ScrollArea } from '../ui/scroll-area';
 import { KeyRound } from 'lucide-react';
 import { useSidebar } from '../ui/sidebar';
 import { useState, useMemo } from 'react';
+import { SheetTitle } from '../ui/sheet';
 
 export function SideNav({ isMobile = false }: { isMobile?: boolean }) {
   const pathname = usePathname();
@@ -37,7 +38,7 @@ export function SideNav({ isMobile = false }: { isMobile?: boolean }) {
         <SidebarHeader className='p-4 border-b'>
           <Link href="/" className="flex items-center space-x-2">
             <KeyRound className="h-6 w-6 text-primary" />
-            <span className="font-bold font-headline">AuthEd</span>
+            <SheetTitle className="font-bold font-headline text-lg p-0 m-0">AuthEd</SheetTitle>
           </Link>
         </SidebarHeader>
       )}
