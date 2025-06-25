@@ -1,9 +1,61 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { BookOpen, Code, Component, GitFork, Layers, ListChecks, PlayCircle, Wind } from "lucide-react";
+
+const features = [
+    {
+      icon: <BookOpen className="w-6 h-6 text-primary" />,
+      title: "AuthN vs. AuthZ",
+      description: "Clear, detailed explanations of the core concepts of Authentication and Authorization.",
+    },
+    {
+      icon: <ListChecks className="w-6 h-6 text-primary" />,
+      title: "25+ Auth Guides",
+      description: "In-depth guides for a wide range of authentication methods, from basic to advanced.",
+    },
+    {
+      icon: <PlayCircle className="w-6 h-6 text-primary" />,
+      title: "Interactive Demos",
+      description: "Hands-on demos to experience authentication flows in a safe, mock environment.",
+    },
+    {
+      icon: <GitFork className="w-6 h-6 text-primary" />,
+      title: "Visual Diagrams",
+      description: "Easy-to-understand diagrams illustrating complex protocols like OAuth2 and SAML.",
+    },
+];
+
+const techStack = [
+    {
+        icon: <Layers className="w-5 h-5 text-accent" />,
+        name: "Next.js",
+        description: "App Router & Server Components"
+    },
+    {
+        icon: <Code className="w-5 h-5 text-accent" />,
+        name: "TypeScript",
+        description: "For type safety"
+    },
+    {
+        icon: <Wind className="w-5 h-5 text-accent" />,
+        name: "Tailwind CSS",
+        description: "For modern styling"
+    },
+    {
+        icon: <Component className="w-5 h-5 text-accent" />,
+        name: "Shadcn/UI",
+        description: "For UI components"
+    }
+]
 
 export function AboutPage() {
   return (
-    <div className="space-y-8">
-      <h1 className="text-4xl font-bold tracking-tight">About AuthEd</h1>
+    <div className="space-y-12">
+      <header className="text-center">
+        <h1 className="text-4xl md:text-5xl font-bold tracking-tighter">About AuthEd</h1>
+        <p className="max-w-3xl mx-auto mt-3 text-lg text-muted-foreground">
+          An educational platform designed to demystify the complex world of digital authentication and authorization.
+        </p>
+      </header>
       
       <Card>
         <CardHeader>
@@ -11,57 +63,69 @@ export function AboutPage() {
         </CardHeader>
         <CardContent className="space-y-4 text-muted-foreground">
           <p>
-            AuthEd is an educational platform designed to demystify the complex world of digital authentication and authorization. 
-            Our primary objective is to provide developers, students, and security enthusiasts with a clear, comprehensive, and interactive resource to understand these critical security concepts.
+            AuthEd's primary objective is to provide developers, students, and security enthusiasts with a clear, comprehensive, and interactive resource to understand critical security concepts. We aim to bridge the gap between theory and practice.
           </p>
           <p>
-            This project serves as a functional frontend companion to a FastAPI backend project, demonstrating 25 distinct authentication types in a practical, hands-on manner.
+            This project serves as a functional frontend companion to a FastAPI backend project, demonstrating 25 distinct authentication types in a practical, hands-on manner. It's built to be both an educational tool and a reference guide.
           </p>
         </CardContent>
       </Card>
 
+      <section className="space-y-6">
+        <div className="text-center">
+            <h2 className="text-3xl font-bold">Features at a Glance</h2>
+            <p className="text-muted-foreground mt-2">Everything you need to master authentication.</p>
+        </div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {features.map((feature) => (
+            <Card key={feature.title} className="flex flex-col items-start p-6">
+                <div className="bg-primary/10 p-3 rounded-full mb-4">
+                    {feature.icon}
+                </div>
+                <h3 className="font-semibold text-lg">{feature.title}</h3>
+                <p className="text-muted-foreground text-sm mt-1">{feature.description}</p>
+            </Card>
+          ))}
+        </div>
+      </section>
+      
       <div className="grid md:grid-cols-2 gap-8">
         <Card>
-          <CardHeader>
-            <CardTitle>Core Features</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="list-disc pl-5 space-y-2 text-muted-foreground">
-              <li>In-depth explanation of Authentication vs. Authorization.</li>
-              <li>Detailed guides for 25 different authentication methods.</li>
-              <li>Interactive demos to see authentication flows in action.</li>
-              <li>Visual diagrams illustrating complex protocols.</li>
-              <li>A comparison table to evaluate methods side-by-side.</li>
-            </ul>
-          </CardContent>
+            <CardHeader>
+                <CardTitle>Technology Stack</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <ul className="space-y-4">
+                {techStack.map((tech) => (
+                    <li key={tech.name} className="flex items-start gap-4">
+                        <div className="bg-accent/10 p-2 rounded-lg mt-1">
+                            {tech.icon}
+                        </div>
+                        <div>
+                            <p className="font-semibold">{tech.name}</p>
+                            <p className="text-sm text-muted-foreground">{tech.description}</p>
+                        </div>
+                    </li>
+                ))}
+                </ul>
+            </CardContent>
         </Card>
         
         <Card>
-          <CardHeader>
-            <CardTitle>Technology Stack</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="list-disc pl-5 space-y-2 text-muted-foreground">
-              <li><strong>Framework:</strong> Next.js (App Router)</li>
-              <li><strong>Language:</strong> TypeScript</li>
-              <li><strong>Styling:</strong> Tailwind CSS</li>
-              <li><strong>UI Components:</strong> Shadcn/UI</li>
-              <li><strong>Diagrams:</strong> Custom SVG & placeholder components</li>
-            </ul>
-          </CardContent>
+            <CardHeader>
+                <CardTitle>Project Resources</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4 text-muted-foreground">
+                <p>
+                    This frontend application is designed to work with a corresponding backend implementation. For more details on the backend, please refer to the project's repository.
+                </p>
+                <p>
+                    The complete source code for both the frontend and backend is available for you to explore, learn from, and adapt.
+                </p>
+            </CardContent>
         </Card>
       </div>
-      
-      <Card>
-        <CardHeader>
-          <CardTitle>Project Resources</CardTitle>
-        </CardHeader>
-        <CardContent className="text-muted-foreground">
-            <p>
-                This frontend application is designed to work with a corresponding backend implementation. For more details on the backend, please refer to the project's repository (link to be added).
-            </p>
-        </CardContent>
-      </Card>
+
     </div>
   )
 }
