@@ -4,8 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { ArrowRight, KeyRound, ShieldCheck, PlayCircle, GitFork, ListChecks } from "lucide-react";
 import Link from "next/link";
-import { authTypes } from "@/lib/auth-types-data";
-import { AuthTypeCard } from "../auth/AuthTypeCard";
 
 const features = [
   {
@@ -28,9 +26,6 @@ const features = [
   }
 ];
 
-const featuredSlugs = ["token-based-authentication", "oauth2-authentication", "webauthn"];
-const featuredAuthTypes = authTypes.filter(type => featuredSlugs.includes(type.slug));
-
 export function HomePage() {
   return (
     <div className="space-y-20 md:space-y-28">
@@ -52,30 +47,6 @@ export function HomePage() {
                 Compare All Methods
               </Link>
             </Button>
-        </div>
-      </section>
-
-      <section className="space-y-12">
-        <div className="text-center">
-          <h2 className="text-3xl md:text-4xl font-bold">A Comprehensive Learning Platform</h2>
-          <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">Core concepts and tools to help you build secure, modern applications with confidence.</p>
-        </div>
-        <div className="grid md:grid-cols-3 gap-8">
-          {features.map((feature) => (
-            <Link href={feature.href} key={feature.title} className="group block">
-              <Card className="text-center flex flex-col items-center p-6 h-full transition-all duration-300 group-hover:border-primary group-hover:shadow-xl group-hover:-translate-y-2">
-                <div className="bg-primary/10 p-4 rounded-full mb-4 inline-flex transition-colors duration-300 group-hover:bg-primary/20">
-                  {feature.icon}
-                </div>
-                <CardHeader className="p-0">
-                  <CardTitle>{feature.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="p-0 mt-2">
-                  <p className="text-muted-foreground text-sm">{feature.description}</p>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
         </div>
       </section>
 
@@ -129,20 +100,39 @@ export function HomePage() {
 
       <section className="space-y-12">
         <div className="text-center">
-            <h2 className="text-3xl md:text-4xl font-bold">Dive Into Popular Methods</h2>
-            <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">Get started with some of the most common and important authentication standards used today.</p>
+          <h2 className="text-3xl md:text-4xl font-bold">A Comprehensive Learning Platform</h2>
+          <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">Core concepts and tools to help you build secure, modern applications with confidence.</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredAuthTypes.map((authType) => (
-                <AuthTypeCard key={authType.slug} authType={authType} />
-            ))}
+        <div className="grid md:grid-cols-3 gap-8">
+          {features.map((feature) => (
+            <Link href={feature.href} key={feature.title} className="group block">
+              <Card className="text-center flex flex-col items-center p-6 h-full transition-all duration-300 group-hover:border-primary group-hover:shadow-xl group-hover:-translate-y-2">
+                <div className="bg-primary/10 p-4 rounded-full mb-4 inline-flex transition-colors duration-300 group-hover:bg-primary/20">
+                  {feature.icon}
+                </div>
+                <CardHeader className="p-0">
+                  <CardTitle>{feature.title}</CardTitle>
+                </CardHeader>
+                <CardContent className="p-0 mt-2">
+                  <p className="text-muted-foreground text-sm">{feature.description}</p>
+                </CardContent>
+              </Card>
+            </Link>
+          ))}
         </div>
-         <div className="text-center mt-12">
-            <Button asChild size="lg" variant="default">
-              <Link href="/auth-types">
-                Explore All 25+ Methods <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
+      </section>
+
+      <section className="text-center bg-card border rounded-lg p-10 md:p-16">
+        <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Ready to Become an Expert?</h2>
+        <p className="max-w-2xl mx-auto mt-4 text-lg text-muted-foreground">
+          Your journey into the world of authentication starts here. Explore our comprehensive library and build your knowledge.
+        </p>
+        <div className="mt-8">
+          <Button asChild size="lg">
+            <Link href="/auth-types">
+              Explore All Authentication Types <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </Button>
         </div>
       </section>
 
