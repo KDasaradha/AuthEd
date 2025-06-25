@@ -110,7 +110,7 @@ export function HomePage() {
                <CardTitle className="flex items-center gap-2">
                 <ShieldCheck className="text-accent"/>
                 Authorization (AuthZ)
-              </Title>
+              </CardTitle>
               <CardDescription>"What are you allowed to do?"</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
