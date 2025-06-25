@@ -1,6 +1,7 @@
+
 import React from 'react';
 
-export function BasicAuthSetup() {
+function BasicAuthSetup() {
   return (
     <ol className="list-decimal space-y-2 pl-5">
       <li><strong>Client-Side:</strong> Concatenate username and password with a colon (`:`).</li>
@@ -13,7 +14,7 @@ export function BasicAuthSetup() {
   );
 }
 
-export function TokenBasedSetup() {
+function TokenBasedSetup() {
   return (
     <ol className="list-decimal space-y-2 pl-5">
       <li><strong>Login:</strong> User authenticates with credentials (e.g., username/password).</li>
@@ -26,7 +27,7 @@ export function TokenBasedSetup() {
   );
 }
 
-export function OAuth2Setup() {
+function OAuth2Setup() {
   return (
     <ol className="list-decimal space-y-2 pl-5">
       <li><strong>Client Registration:</strong> Register your application with the Authorization Server (e.g., Google) to get a Client ID and Client Secret.</li>
@@ -39,7 +40,7 @@ export function OAuth2Setup() {
   );
 }
 
-export function SessionBasedSetup() {
+function SessionBasedSetup() {
   return (
     <ol className="list-decimal space-y-2 pl-5">
       <li><strong>Login:</strong> User submits credentials to the server.</li>
@@ -51,7 +52,7 @@ export function SessionBasedSetup() {
   );
 }
 
-export function ApiKeySetup() {
+function ApiKeySetup() {
   return (
     <ol className="list-decimal space-y-2 pl-5">
       <li><strong>Key Generation:</strong> A developer generates an API key for their application from a service's developer portal.</li>
@@ -62,7 +63,7 @@ export function ApiKeySetup() {
   );
 }
 
-export function DigestAuthSetup() {
+function DigestAuthSetup() {
   return (
     <ol className="list-decimal space-y-2 pl-5">
       <li><strong>Initial Request:</strong> Client makes an unauthenticated request to a protected resource.</li>
@@ -74,7 +75,7 @@ export function DigestAuthSetup() {
   );
 }
 
-export function CertificateBasedSetup() {
+function CertificateBasedSetup() {
   return (
     <ol className="list-decimal space-y-2 pl-5">
       <li><strong>Certificate Issuance:</strong> A trusted Certificate Authority (CA), either public or private, issues a client certificate to a user or device.</li>
@@ -85,7 +86,7 @@ export function CertificateBasedSetup() {
   );
 }
 
-export function OidcSetup() {
+function OidcSetup() {
   return (
     <ol className="list-decimal space-y-2 pl-5">
       <li>Follow the standard OAuth 2.0 Authorization Code flow, but include `openid` in the list of requested scopes.</li>
@@ -97,7 +98,7 @@ export function OidcSetup() {
   );
 }
 
-export function SamlSetup() {
+function SamlSetup() {
   return (
     <ol className="list-decimal space-y-2 pl-5">
       <li><strong>Metadata Exchange:</strong> Establish a trust relationship by exchanging XML metadata files between the Service Provider (SP) and Identity Provider (IdP).</li>
@@ -109,7 +110,7 @@ export function SamlSetup() {
   );
 }
 
-export function MfaSetup() {
+function MfaSetup() {
   return (
     <ol className="list-decimal space-y-2 pl-5">
       <li><strong>Enrollment:</strong> During setup, a user enrolls a second factor (e.g., scans a QR code for a TOTP app, registers a phone number for SMS, or registers a FIDO2 key).</li>
@@ -121,7 +122,7 @@ export function MfaSetup() {
   );
 }
 
-export function BiometricSetup() {
+function BiometricSetup() {
   return (
     <ol className="list-decimal space-y-2 pl-5">
       <li><strong>Registration (WebAuthn):</strong> User registers their device's authenticator (e.g., Touch ID, YubiKey) with the web service. The authenticator generates a new public/private key pair. The public key is stored by the server.</li>
@@ -133,7 +134,7 @@ export function BiometricSetup() {
   );
 }
 
-export function KerberosSetup() {
+function KerberosSetup() {
   return (
     <ol className="list-decimal space-y-2 pl-5">
       <li><strong>AS Exchange:</strong> A client authenticates with the Authentication Server (AS) part of the KDC and receives an encrypted TGT.</li>
@@ -145,7 +146,7 @@ export function KerberosSetup() {
   );
 }
 
-export function SsoSetup() {
+function SsoSetup() {
   return (
     <ol className="list-decimal space-y-2 pl-5">
       <li>An organization deploys or subscribes to a central Identity Provider (IdP) like Azure AD, Okta, or ADFS.</li>
@@ -157,7 +158,7 @@ export function SsoSetup() {
   );
 }
 
-export function HmacSetup() {
+function HmacSetup() {
   return (
     <ol className="list-decimal space-y-2 pl-5">
       <li>Provision the client application with a unique, securely generated secret key.</li>
@@ -169,7 +170,7 @@ export function HmacSetup() {
   );
 }
 
-export function NtlmSetup() {
+function NtlmSetup() {
   return (
     <ol className="list-decimal space-y-2 pl-5">
       <li>Generally configured at the web server level (e.g., IIS) for 'Windows Integrated Authentication'. Not typically implemented by application developers.</li>
@@ -179,7 +180,7 @@ export function NtlmSetup() {
   );
 }
 
-export function LdapSetup() {
+function LdapSetup() {
   return (
     <ol className="list-decimal space-y-2 pl-5">
       <li>An application is configured with the LDAP server's address and a service account with read permissions to search the directory.</li>
@@ -190,7 +191,7 @@ export function LdapSetup() {
   );
 }
 
-export function AnonymousSetup() {
+function AnonymousSetup() {
   return (
     <ol className="list-decimal space-y-2 pl-5">
       <li>This is a server-side configuration, not an active process.</li>
@@ -201,7 +202,7 @@ export function AnonymousSetup() {
   );
 }
 
-export function ChallengeResponseSetup() {
+function ChallengeResponseSetup() {
   return (
     <ol className="list-decimal space-y-2 pl-5">
       <li>The client initiates an authentication request.</li>
@@ -213,7 +214,7 @@ export function ChallengeResponseSetup() {
   );
 }
 
-export function SmartCardSetup() {
+function SmartCardSetup() {
   return (
     <ol className="list-decimal space-y-2 pl-5">
       <li>Users are issued smart cards containing their digital certificates by a trusted authority.</li>
@@ -225,7 +226,7 @@ export function SmartCardSetup() {
   );
 }
 
-export function SocialAuthSetup() {
+function SocialAuthSetup() {
   return (
     <ol className="list-decimal space-y-2 pl-5">
       <li>Register your app on the provider's developer portal (e.g., Google Cloud Console) to get a Client ID and Client Secret. Configure your allowed redirect URIs.</li>
@@ -237,7 +238,7 @@ export function SocialAuthSetup() {
   );
 }
 
-export function OtpSetup() {
+function OtpSetup() {
   return (
     <ol className="list-decimal space-y-2 pl-5">
       <li><strong>TOTP Enrollment:</strong> The server generates a secret key and displays it as a QR code.</li>
@@ -249,7 +250,7 @@ export function OtpSetup() {
   );
 }
 
-export function ZeroTrustSetup() {
+function ZeroTrustSetup() {
   return (
     <ol className="list-decimal space-y-2 pl-5">
       <li><strong>Strong Identity:</strong> Implement a strong, centralized Identity Provider (IdP) as the core source of truth for users.</li>
@@ -260,7 +261,7 @@ export function ZeroTrustSetup() {
   );
 }
 
-export function WebAuthnSetup() {
+function WebAuthnSetup() {
   return (
     <ol className="list-decimal space-y-2 pl-5">
       <li><strong>Registration:</strong> The server sends a challenge and user information. The browser calls `navigator.credentials.create()`, which prompts the user to create a new credential with their authenticator. The resulting public key and credential ID are sent to the server for storage.</li>
@@ -269,7 +270,7 @@ export function WebAuthnSetup() {
   );
 }
 
-export function MutualTlsSetup() {
+function MutualTlsSetup() {
   return (
     <ol className="list-decimal space-y-2 pl-5">
       <li><strong>CA Setup:</strong> Create or use a private Certificate Authority (CA) to issue certificates for your internal services.</li>
@@ -280,7 +281,7 @@ export function MutualTlsSetup() {
   );
 }
 
-export function DelegatedAuthSetup() {
+function DelegatedAuthSetup() {
   return (
     <ol className="list-decimal space-y-2 pl-5">
       <li><strong>Choose an IdP:</strong> Select an Identity Provider (e.g., Okta, Azure AD, Auth0, or your own).</li>
@@ -290,3 +291,31 @@ export function DelegatedAuthSetup() {
     </ol>
   );
 }
+
+export const AuthTypeSetups = {
+  BasicAuthSetup,
+  TokenBasedSetup,
+  OAuth2Setup,
+  SessionBasedSetup,
+  ApiKeySetup,
+  DigestAuthSetup,
+  CertificateBasedSetup,
+  OidcSetup,
+  SamlSetup,
+  MfaSetup,
+  BiometricSetup,
+  KerberosSetup,
+  SsoSetup,
+  HmacSetup,
+  NtlmSetup,
+  LdapSetup,
+  AnonymousSetup,
+  ChallengeResponseSetup,
+  SmartCardSetup,
+  SocialAuthSetup,
+  OtpSetup,
+  ZeroTrustSetup,
+  WebAuthnSetup,
+  MutualTlsSetup,
+  DelegatedAuthSetup,
+};
