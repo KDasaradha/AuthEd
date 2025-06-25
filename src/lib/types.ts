@@ -15,4 +15,8 @@ export type AuthType = {
   ux: 'Low Friction' | 'Medium Friction' | 'High Friction' | 'N/A';
   credentialType: string;
   standardization: string;
+  pros: string[];
+  cons: string[];
+  ssoCapability: 'Native' | 'Possible' | 'Not Suited';
+  developerExperience: 'Easy' | 'Moderate' | 'Complex';
 };
