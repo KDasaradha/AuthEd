@@ -1,3 +1,5 @@
+import type { ComponentType } from 'react';
+
 export type AuthType = {
   slug: string;
   name: string;
@@ -7,6 +9,6 @@ export type AuthType = {
   complexity: 'Low' | 'Medium' | 'High';
   protocols: string;
   technicalExplanation: string;
-  setupInstructions: React.ComponentType;
-  diagram: React.ComponentType;
+  setupInstructions: ComponentType;
+  diagram: ComponentType;
 };

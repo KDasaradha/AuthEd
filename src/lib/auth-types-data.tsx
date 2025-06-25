@@ -1,4 +1,3 @@
-
 import type { AuthType } from './types';
 import { 
     ApiKeyDiagram, 
@@ -7,7 +6,6 @@ import {
     OAuth2Diagram 
 } from '@/components/auth/AuthTypeDiagrams';
 import AuthTypeSetups from '@/components/auth/AuthTypeSetups';
-
 
 export const authTypes: AuthType[] = [
   {
@@ -174,7 +172,7 @@ export const authTypes: AuthType[] = [
     security: "Medium",
     complexity: "Medium",
     protocols: "HTTP",
-    technicalExplanation: "HMAC (Hash-based Message Authentication Code) verifies both the integrity and authenticity of a request. The client and server share a secret key. To make a request, the client creates a signature by hashing the request content (and often other parts like the URI and a timestamp) with the secret key using an algorithm like SHA256. The server performs the same calculation on the received message and compares its result to the signature sent by the client. If they match, the server knows the request is from a trusted source and hasn't been tampered with in transit.",
+    technicalExplanation: "HMAC (Hash-based Message Authentication Code) verifies both the integrity and authenticity of a request. The client and server share a secret key. To make a request, the client creates a signature by hashing the request content (and often other parts like the URI and a timestamp) with an algorithm like SHA256. The server performs the same calculation on the received message and compares its result to the signature sent by the client. If they match, the server knows the request is from a trusted source and hasn't been tampered with in transit.",
     setupInstructions: AuthTypeSetups.HmacSetup,
     diagram: GenericAuthDiagram,
   },

@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
+import { Loader2 } from 'lucide-react';
 
 export function InteractiveDemo() {
     const [username, setUsername] = useState('');
@@ -52,11 +53,17 @@ export function InteractiveDemo() {
                  <div className="space-y-2">
                     <Input placeholder="Username (try 'admin')" value={username} onChange={e => setUsername(e.target.value)} disabled={isLoading} />
                     <Input type="password" placeholder="Password (try 'password')" value={password} onChange={e => setPassword(e.target.value)} disabled={isLoading} />
-                    <Button onClick={handleLogin} disabled={isLoading}>{isLoading ? 'Logging in...' : 'Login'}</Button>
+                    <Button onClick={handleLogin} disabled={isLoading}>
+                      {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                      Log in
+                    </Button>
                  </div>
                  
                  <div>
-                    <Button onClick={handleProtected} disabled={isLoading}>{isLoading ? 'Accessing...' : 'Access Protected Resource'}</Button>
+                    <Button onClick={handleProtected} disabled={isLoading}>
+                      {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                      Access Protected Resource
+                    </Button>
                  </div>
                  
                 {token && (

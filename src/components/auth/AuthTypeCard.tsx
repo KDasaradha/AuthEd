@@ -9,7 +9,7 @@ export function AuthTypeCard({ authType }: { authType: AuthType }) {
     <Link href={`/auth-types/${authType.slug}`} className="group">
       <Card className="h-full flex flex-col transition-all duration-300 group-hover:border-primary group-hover:shadow-lg group-hover:-translate-y-1">
         <CardHeader>
-          <CardTitle className="text-xl">{authType.name}</CardTitle>
+          <CardTitle>{authType.name}</CardTitle>
           <CardDescription>{authType.description}</CardDescription>
         </CardHeader>
         <div className="flex-grow" />

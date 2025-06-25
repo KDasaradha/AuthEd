@@ -6,19 +6,18 @@ import { usePathname } from 'next/navigation';
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarContent, SidebarHeader, SidebarInput, SidebarGroup, SidebarGroupLabel } from '../ui/sidebar';
 import { ScrollArea } from '../ui/scroll-area';
 import { KeyRound } from 'lucide-react';
-import { cn } from '@/lib/utils';
 import { useSidebar } from '../ui/sidebar';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
 export function SideNav({ isMobile = false }: { isMobile?: boolean }) {
   const pathname = usePathname();
   const { setOpenMobile } = useSidebar();
   const [search, setSearch] = useState('');
 
-  const filteredAuthTypes = authTypes.filter(type => 
+  const filteredAuthTypes = useMemo(() => authTypes.filter(type => 
     type.name.toLowerCase().includes(search.toLowerCase()) || 
     type.description.toLowerCase().includes(search.toLowerCase())
-  );
+  ), [search]);
 
   const handleLinkClick = () => {
     if (isMobile) {

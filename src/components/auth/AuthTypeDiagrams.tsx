@@ -1,9 +1,8 @@
-
 import React from 'react';
 
 export function OAuth2Diagram() {
     return (
-    <svg width="100%" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" className="bg-gray-50 rounded">
+    <svg width="100%" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" className="bg-gray-50 rounded dark:bg-card">
         <g className="font-sans">
             <rect x="50" y="50" width="120" height="40" rx="5" fill="hsl(var(--primary))" stroke="hsl(var(--border))" />
             <text x="110" y="75" textAnchor="middle" fill="hsl(var(--primary-foreground))">User</text>
@@ -43,7 +42,7 @@ export function OAuth2Diagram() {
 
 export function BasicAuthDiagram() {
     return (
-    <svg width="100%" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" className="bg-gray-50 rounded">
+    <svg width="100%" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" className="bg-gray-50 rounded dark:bg-card">
         <g className="font-sans">
             <rect x="150" y="50" width="120" height="40" rx="5" fill="hsl(var(--primary))" stroke="hsl(var(--border))" />
             <text x="210" y="75" textAnchor="middle" fill="hsl(var(--primary-foreground))">Client App</text>
@@ -74,7 +73,7 @@ export function BasicAuthDiagram() {
 
 export function ApiKeyDiagram() {
     return (
-    <svg width="100%" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" className="bg-gray-50 rounded">
+    <svg width="100%" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" className="bg-gray-50 rounded dark:bg-card">
         <g className="font-sans">
             <rect x="150" y="50" width="120" height="40" rx="5" fill="hsl(var(--primary))" stroke="hsl(var(--border))" />
             <text x="210" y="75" textAnchor="middle" fill="hsl(var(--primary-foreground))">Client App</text>
@@ -105,7 +104,7 @@ export function ApiKeyDiagram() {
 
 export function GenericAuthDiagram() {
     return (
-    <svg width="100%" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" className="bg-gray-50 rounded">
+    <svg width="100%" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" className="bg-gray-50 rounded dark:bg-card">
         <g className="font-sans">
             <rect x="150" y="50" width="120" height="40" rx="5" fill="hsl(var(--primary))" stroke="hsl(var(--border))" />
             <text x="210" y="75" textAnchor="middle" fill="hsl(var(--primary-foreground))">Client</text>

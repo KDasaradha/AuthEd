@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { KeyRound, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { useSidebar } from '../ui/sidebar';
 import { SideNav } from './SideNav';
 import { ThemeToggle } from '../ThemeToggle';
 
@@ -14,8 +13,6 @@ const navLinks = [
 ];
 
 export function Header() {
-  const { setOpenMobile } = useSidebar();
-  
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 items-center">
