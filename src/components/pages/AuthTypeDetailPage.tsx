@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AuthFlowDiagram } from "@/components/auth/AuthFlowDiagram";
 import { InteractiveDemo } from "@/components/auth/InteractiveDemo";
 import type { AuthType } from "@/lib/types";
+import { CheckCircle2, XCircle } from "lucide-react";
 
 type AuthTypeDetailPageProps = {
   authType: AuthType;
@@ -44,6 +45,36 @@ export function AuthTypeDetailPage({ authType }: AuthTypeDetailPageProps) {
                 <CardContent>
                     <p className="text-muted-foreground">{authType.useCase}</p>
                 </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Pros & Cons</CardTitle>
+              </CardHeader>
+              <CardContent className="grid gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 flex items-center gap-2 font-semibold">
+                    <CheckCircle2 className="h-5 w-5 text-green-500" />
+                    Pros
+                  </h4>
+                  <ul className="list-disc space-y-2 pl-5 text-muted-foreground">
+                    {authType.pros.map((pro) => (
+                      <li key={pro}>{pro}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="mb-3 flex items-center gap-2 font-semibold">
+                    <XCircle className="h-5 w-5 text-red-500" />
+                    Cons
+                  </h4>
+                  <ul className="list-disc space-y-2 pl-5 text-muted-foreground">
+                    {authType.cons.map((con) => (
+                      <li key={con}>{con}</li>
+                    ))}
+                  </ul>
+                </div>
+              </CardContent>
             </Card>
             
             <AuthFlowDiagram diagram={<DiagramComponent />} />
