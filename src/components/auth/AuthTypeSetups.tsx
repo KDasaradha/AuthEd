@@ -292,7 +292,7 @@ function DelegatedAuthSetup() {
   );
 }
 
-export const AuthTypeSetups = {
+const AuthTypeSetups = {
   BasicAuthSetup,
   TokenBasedSetup,
   OAuth2Setup,
@@ -319,3 +319,5 @@ export const AuthTypeSetups = {
   MutualTlsSetup,
   DelegatedAuthSetup,
 };
+
+export default AuthTypeSetups;

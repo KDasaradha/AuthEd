@@ -1,3 +1,4 @@
+
 import type { AuthType } from './types';
 import { 
     ApiKeyDiagram, 
@@ -5,7 +6,7 @@ import {
     GenericAuthDiagram, 
     OAuth2Diagram 
 } from '@/components/auth/AuthTypeDiagrams';
-import { AuthTypeSetups } from '@/components/auth/AuthTypeSetups';
+import AuthTypeSetups from '@/components/auth/AuthTypeSetups';
 
 
 export const authTypes: AuthType[] = [
