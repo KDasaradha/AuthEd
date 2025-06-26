@@ -7,7 +7,7 @@ import {
     OAuth2Diagram 
 } from '@/components/auth/AuthTypeDiagrams';
 import { PlaceholderSetup } from '@/components/auth/PlaceholderSetup';
-import { BasicAuthSetup } from '@/components/auth/AuthTypeSetups';
+import { BasicAuthSetup, ApiKeyAuthSetup, JwtAuthSetup } from '@/components/auth/AuthTypeSetups';
 import React from 'react';
 
 export const authTypes: AuthType[] = [
@@ -69,7 +69,7 @@ WWW-Authenticate: Basic realm="User Visible Realm"`,
     credentialType: 'Bearer Token',
     standardization: 'IETF RFC 7519',
     technicalExplanation: "Token-based authentication is a stateless protocol. After a user logs in with credentials, the server creates a JSON Web Token (JWT) and sends it to the client. A JWT is a compact, self-contained token with three parts: a header (specifying the algorithm), a payload (containing user data or 'claims' like user ID, roles, and expiration time), and a cryptographic signature. The signature, created with a secret key known only to the server, ensures the token's integrity and authenticity. The client stores this token (e.g., in localStorage or a secure cookie) and sends it with every protected request in the `Authorization: Bearer <token>` header. The server can then validate the token's signature and claims without needing to look up session data in a database, making it highly scalable.",
-    setupInstructions: PlaceholderSetup,
+    setupInstructions: JwtAuthSetup,
     diagram: GenericAuthDiagram,
     pros: ["Stateless and scalable", "Good for SPAs and mobile apps", "Decouples client and server", "Transmits claims securely"],
     cons: ["Token revocation is complex", "Tokens can grow large", "Secret management is critical", "Data in token is readable (not encrypted)"],
@@ -165,7 +165,7 @@ Cookie: session_id=abc123xyz`
     credentialType: 'Static Key',
     standardization: 'De facto',
     technicalExplanation: "API keys are used to identify the consuming application or project making a request, not a specific end-user. It's a simple way to control access, track usage for billing, and apply rate limiting. The key is a long, unique string that the client sends with each request, typically in a custom HTTP header like `X-API-Key`, a query parameter, or the request body. Because the key is static and often long-lived, it should be treated like a secret and protected accordingly. It does not provide user-level authentication but rather project-level identification.",
-    setupInstructions: PlaceholderSetup,
+    setupInstructions: ApiKeyAuthSetup,
     diagram: ApiKeyDiagram,
     pros: ["Simple to generate and use", "Good for identifying applications and tracking usage"],
     cons: ["Not for user authentication", "Vulnerable if exposed on the client-side", "No standard for key placement in requests"],
