@@ -6,6 +6,7 @@ import {
     OAuth2Diagram 
 } from '@/components/auth/AuthTypeDiagrams';
 import { PlaceholderSetup } from '@/components/auth/PlaceholderSetup';
+import { BasicAuthSetup } from '@/components/auth/AuthTypeSetups';
 import React from 'react';
 
 export const authTypes: AuthType[] = [
@@ -22,8 +23,8 @@ export const authTypes: AuthType[] = [
     ux: 'Medium Friction',
     credentialType: 'Password',
     standardization: 'IETF RFC 7617',
-    technicalExplanation: "HTTP Basic Authentication is a simple challenge-response mechanism where a user agent provides a username and password. These credentials are combined into a 'username:password' string, encoded using Base64, and sent in the `Authorization` header of every HTTP request. Example: `Authorization: Basic dXNlcjpwYXNz`. Critically, Base64 is an encoding, not encryption, so credentials are sent in a reversible format. Without HTTPS (TLS) to encrypt the entire request, this method is highly insecure and vulnerable to sniffing. It is stateless, requiring credentials to be sent with each request.",
-    setupInstructions: PlaceholderSetup,
+    technicalExplanation: "HTTP Basic Authentication is one of the simplest methods for enforcing access control to web resources. It's a stateless, challenge-response mechanism defined in RFC 7617. When a client requests a protected resource for the first time, the server responds with a `401 Unauthorized` status and a `WWW-Authenticate: Basic realm=\"...\"` header. The 'realm' is a string that identifies the protected area.\n\nUpon receiving this challenge, the browser prompts the user for a username and password. The client then combines these into a `username:password` string, encodes it using Base64, and resubmits the request with an `Authorization` header. For example, `admin:password` becomes `YWRtaW46cGFzc3dvcmQ=`, and the header would be `Authorization: Basic YWRtaW46cGFzc3dvcmQ=`.\n\n**Crucially, Base64 is an encoding scheme, not encryption.** It is trivial to reverse, meaning the credentials are sent in cleartext unless the entire connection is encrypted with HTTPS (TLS). Because it's stateless, these credentials must be sent with every single request to the protected realm, which increases the risk of exposure if not properly secured.",
+    setupInstructions: BasicAuthSetup,
     diagram: BasicAuthDiagram,
     pros: ["Extremely simple to implement", "Universally supported"],
     cons: ["Insecure without TLS", "Sends credentials with every request"],
