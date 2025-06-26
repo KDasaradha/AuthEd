@@ -354,3 +354,83 @@ export function JwtAuthSetup() {
   );
 }
 
+// --- Bearer Token Auth ---
+
+const bearerClientCode = `
+const bearerToken = 'your_retrieved_bearer_token'; // e.g., from a login endpoint
+
+const headers = {
+  'Authorization': \`Bearer \${bearerToken}\`
+};
+
+fetch('https://api.example.com/protected-data', {
+  method: 'GET',
+  headers: headers
+})
+.then(response => {
+  if (response.status === 401) {
+    throw new Error('Token is invalid or expired!');
+  }
+  return response.json();
+})
+.then(data => {
+  console.log('Successfully accessed data:', data);
+})
+.catch(error => {
+  console.error('Error:', error);
+});
+`;
+
+const bearerServerCode = `
+from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+
+app = FastAPI()
+
+# This is a simplified dependency, often paired with another function
+# that decodes the token (if JWT) or looks it up in a database.
+security = HTTPBearer()
+
+async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)):
+    """A dependency to validate the Bearer Token."""
+    # In a real app, you would validate the token.
+    # 1. If it's a JWT, decode and verify its signature and claims.
+    # 2. If it's an opaque token, look it up in a database/cache.
+    
+    # For this demo, we'll accept any token that isn't "invalid".
+    if credentials.scheme != "Bearer" or credentials.credentials == "invalid_token":
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid or expired token",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    # In a real app, you would return the user object associated with the token.
+    return {"user_id": "user123"}
+
+@app.get("/protected-data")
+async def read_protected_data(current_user: dict = Depends(get_current_user)):
+    """An endpoint protected by a Bearer Token."""
+    return {"message": f"Welcome, you have access!", "user_info": current_user}
+`;
+
+export function BearerTokenAuthSetup() {
+  return (
+    <div className="space-y-4">
+      <p>
+        Bearer Token authentication is a common HTTP authentication scheme. The client sends a token in the `Authorization` header with the `Bearer` prefix. This example shows the basic structure. The token itself could be a JWT or an opaque string.
+      </p>
+      <Tabs defaultValue="client" className="w-full">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="client">Client (JavaScript)</TabsTrigger>
+          <TabsTrigger value="server">Server (FastAPI)</TabsTrigger>
+        </TabsList>
+        <TabsContent value="client">
+          <CodeBlock code={bearerClientCode} lang="javascript" />
+        </TabsContent>
+        <TabsContent value="server">
+          <CodeBlock code={bearerServerCode} lang="python" />
+        </TabsContent>
+      </Tabs>
+    </div>
+  );
+}

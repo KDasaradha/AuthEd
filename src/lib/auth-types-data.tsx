@@ -7,7 +7,7 @@ import {
     OAuth2Diagram 
 } from '@/components/auth/AuthTypeDiagrams';
 import { PlaceholderSetup } from '@/components/auth/PlaceholderSetup';
-import { BasicAuthSetup, ApiKeyAuthSetup, JwtAuthSetup } from '@/components/auth/AuthTypeSetups';
+import { BasicAuthSetup, ApiKeyAuthSetup, JwtAuthSetup, BearerTokenAuthSetup } from '@/components/auth/AuthTypeSetups';
 import React from 'react';
 
 export const authTypes: AuthType[] = [
@@ -52,6 +52,39 @@ WWW-Authenticate: Basic realm="User Visible Realm"`,
         <p className="mt-2">
           Without TLS, the Base64-encoded credentials can be easily intercepted and decoded by anyone monitoring the network traffic. Never use Basic Auth over an unencrypted HTTP connection in a production environment.
         </p>
+      </>
+    ),
+  },
+  {
+    slug: "bearer-token",
+    name: "Bearer Token",
+    category: "Token-Based",
+    description: "A type of access token that gives access to the 'bearer' of the token.",
+    useCase: "General purpose API security, used by OAuth2 and JWT implementations.",
+    security: "Medium",
+    complexity: "Medium",
+    protocols: "HTTP",
+    phishingResistance: 'Low',
+    ux: 'N/A',
+    credentialType: 'Bearer Token',
+    standardization: 'IETF RFC 6750',
+    technicalExplanation: "A 'Bearer Token' is a general type of security token. The name 'bearer' signifies that any party in possession of the token (the 'bearer') can use it to gain access to the associated resources, without needing to prove possession of a cryptographic key. The server does not need to know who the client is, only that they have a valid token. This makes them simple and scalable, but also means they must be protected carefully. If a bearer token is leaked, it can be used by an attacker. JWTs are a common format for bearer tokens, but a bearer token can also be an opaque, random string that the server looks up in a database to find associated permissions.",
+    setupInstructions: BearerTokenAuthSetup,
+    diagram: GenericAuthDiagram,
+    pros: ["Simple and widely understood concept", "Stateless when using self-contained formats like JWT", "Flexible: can be opaque strings or structured tokens"],
+    cons: ["Tokens must be transmitted securely (over TLS)", "If a token is stolen, it can be used by an attacker until it expires", "Token revocation can be a challenge"],
+    ssoCapability: 'Possible',
+    developerExperience: 'Moderate',
+    httpExamples: {
+      request: `GET /api/data HTTP/1.1
+Host: api.example.com
+Authorization: Bearer mF_9.B5f-4.1JqM`,
+      errorResponse: `HTTP/1.1 401 Unauthorized
+WWW-Authenticate: Bearer realm="example"`,
+    },
+    securityNotes: (
+      <>
+        <p>Bearer tokens must be kept confidential in storage and in transit. Always transmit them over HTTPS. They should have a limited lifetime (short expiration) to reduce the impact of a potential leak. Do not store them in insecure client-side locations like \`localStorage\`.</p>
       </>
     ),
   },
