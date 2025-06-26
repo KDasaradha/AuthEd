@@ -21,16 +21,19 @@ export function Header() {
             <KeyRound className="h-6 w-6 text-primary" />
             <span className="font-bold font-headline">AuthShowcase</span>
           </Link>
-          <nav className="flex items-center space-x-6 text-sm font-medium">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="transition-colors hover:text-foreground/80 text-foreground/60"
-              >
-                {link.label}
-              </Link>
-            ))}
+          <nav>
+            <ul className="flex items-center space-x-6 text-sm font-medium">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="transition-colors hover:text-foreground/80 text-foreground/60"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </nav>
         </div>
 
