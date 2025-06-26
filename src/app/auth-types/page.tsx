@@ -3,7 +3,7 @@ import { AuthTypesPage } from '@/components/pages/AuthTypesPage';
 
 export const metadata: Metadata = {
   title: 'Authentication Types',
-  description: 'Explore 25 different methods of authentication, from basic to advanced.',
+  description: 'Explore our comprehensive library of 26 authentication methods, organized by category. Use the filters to find the right solution.',
 };
 
 export default function AuthTypes() {
