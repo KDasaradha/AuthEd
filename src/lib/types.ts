@@ -4,6 +4,7 @@ export type AuthType = {
   slug: string;
   name: string;
   description: string;
+  category: string;
   useCase: string;
   security: 'Low' | 'Medium' | 'High';
   complexity: 'Low' | 'Medium' | 'High';

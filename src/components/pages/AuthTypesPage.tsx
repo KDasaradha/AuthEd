@@ -12,11 +12,17 @@ import { Label } from '@/components/ui/label';
 const initialFilters = {
     security: 'all',
     complexity: 'all',
+    category: 'all',
 };
 
 export function AuthTypesPage() {
     const [searchTerm, setSearchTerm] = useState('');
     const [filters, setFilters] = useState(initialFilters);
+
+    const categories = useMemo(() => {
+        const allCategories = authTypes.map(type => type.category);
+        return [...new Set(allCategories)].sort();
+    }, []);
 
     const filteredTypes = useMemo(() => {
         return authTypes.filter(type => {
@@ -25,10 +31,22 @@ export function AuthTypesPage() {
             
             const matchesSecurity = filters.security === 'all' || type.security === filters.security;
             const matchesComplexity = filters.complexity === 'all' || type.complexity === filters.complexity;
+            const matchesCategory = filters.category === 'all' || type.category === filters.category;
 
-            return matchesSearch && matchesSecurity && matchesComplexity;
+            return matchesSearch && matchesSecurity && matchesComplexity && matchesCategory;
         });
     }, [searchTerm, filters]);
+
+    const groupedTypes = useMemo(() => {
+        return filteredTypes.reduce((acc, type) => {
+            const category = type.category || 'Uncategorized';
+            if (!acc[category]) {
+                acc[category] = [];
+            }
+            acc[category].push(type);
+            return acc;
+        }, {} as Record<string, typeof filteredTypes>);
+    }, [filteredTypes]);
 
     const handleFilterChange = (filterName: string, value: string) => {
         setFilters(prev => ({ ...prev, [filterName]: value }));
@@ -57,12 +75,12 @@ export function AuthTypesPage() {
         <header className="space-y-2">
             <h1 className="text-4xl font-bold tracking-tight">Authentication Types</h1>
             <p className="mt-2 text-lg text-muted-foreground">
-                Explore our comprehensive library of 25+ authentication methods. Use the filters to find the right solution for your needs.
+                Explore our comprehensive library of {authTypes.length} authentication methods, organized by category. Use the filters to find the right solution.
             </p>
         </header>
 
         <div className="border rounded-lg p-4 bg-card/50">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="space-y-2">
               <Label htmlFor="search">Search by Keyword</Label>
               <div className="relative">
@@ -75,6 +93,16 @@ export function AuthTypesPage() {
                   className="pl-10"
                 />
               </div>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="category">Category</Label>
+              <Select value={filters.category} onValueChange={(value) => handleFilterChange('category', value)}>
+                <SelectTrigger id="category"><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Categories</SelectItem>
+                  {categories.map(cat => <SelectItem key={cat} value={cat}>{cat}</SelectItem>)}
+                </SelectContent>
+              </Select>
             </div>
             <div className="space-y-2">
               <Label htmlFor="security">Security Level</Label>
@@ -107,25 +135,32 @@ export function AuthTypesPage() {
             Showing <span className="font-bold text-foreground">{filteredTypes.length}</span> of {authTypes.length} authentication methods.
         </p>
 
-        {filteredTypes.length > 0 ? (
-            <motion.div 
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-                variants={containerVariants}
-                initial="hidden"
-                animate="visible"
-            >
-                {filteredTypes.map((authType) => (
-                    <motion.div key={authType.slug} variants={itemVariants}>
-                        <AuthTypeCard authType={authType} />
-                    </motion.div>
-                ))}
-            </motion.div>
-        ) : (
-            <div className="text-center py-16 border-2 border-dashed rounded-lg bg-card/50">
-                <p className="text-2xl font-semibold tracking-tight">No Results Found</p>
-                <p className="text-muted-foreground mt-2">Try adjusting your search or filter criteria.</p>
-            </div>
-        )}
+        <div className="space-y-12">
+            {Object.keys(groupedTypes).length > 0 ? (
+                Object.entries(groupedTypes).map(([category, types]) => (
+                    <section key={category} className="space-y-6">
+                        <h2 className="text-2xl font-bold tracking-tight border-b pb-2">{category}</h2>
+                        <motion.div 
+                            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                            variants={containerVariants}
+                            initial="hidden"
+                            animate="visible"
+                        >
+                            {types.map((authType) => (
+                                <motion.div key={authType.slug} variants={itemVariants}>
+                                    <AuthTypeCard authType={authType} />
+                                </motion.div>
+                            ))}
+                        </motion.div>
+                    </section>
+                ))
+            ) : (
+                <div className="text-center py-16 border-2 border-dashed rounded-lg bg-card/50">
+                    <p className="text-2xl font-semibold tracking-tight">No Results Found</p>
+                    <p className="text-muted-foreground mt-2">Try adjusting your search or filter criteria.</p>
+                </div>
+            )}
+        </div>
     </div>
     );
 }

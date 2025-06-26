@@ -11,6 +11,7 @@ export const authTypes: AuthType[] = [
   {
     slug: "basic-authentication",
     name: "Basic Authentication",
+    category: "Basic",
     description: "A simple method using a username and password encoded in Base64.",
     useCase: "Internal APIs, simple services where transport is secured by TLS.",
     security: "Low",
@@ -31,6 +32,7 @@ export const authTypes: AuthType[] = [
   {
     slug: "token-based-authentication",
     name: "Token-Based (JWT)",
+    category: "Token-Based",
     description: "Uses a signed token (JWT) to verify user identity and claims.",
     useCase: "SPAs, Mobile Apps, APIs, server-to-server communication.",
     security: "Medium",
@@ -51,6 +53,7 @@ export const authTypes: AuthType[] = [
   {
     slug: "oauth2-authentication",
     name: "OAuth2 Authentication",
+    category: "OAuth/OIDC",
     description: "A delegation protocol for third-party access to user resources.",
     useCase: "Third-party services (e.g., 'Log in with Google'), granting limited API access.",
     security: "High",
@@ -71,6 +74,7 @@ export const authTypes: AuthType[] = [
   {
     slug: "session-based-authentication",
     name: "Session-Based Authentication",
+    category: "Session-Based",
     description: "Server stores session data and provides a session ID to the client.",
     useCase: "Traditional monolithic web applications, server-rendered pages.",
     security: "Medium",
@@ -91,6 +95,7 @@ export const authTypes: AuthType[] = [
   {
     slug: "api-key-authentication",
     name: "API Key Authentication",
+    category: "Token-Based",
     description: "A unique key is assigned to each application to access the API.",
     useCase: "Public APIs, usage tracking, server-to-server identification.",
     security: "Low",
@@ -111,6 +116,7 @@ export const authTypes: AuthType[] = [
   {
     slug: "digest-authentication",
     name: "Digest Authentication",
+    category: "Basic",
     description: "A challenge-response method that hashes credentials before sending.",
     useCase: "Situations requiring more security than Basic Auth without implementing TLS.",
     security: "Low",
@@ -131,6 +137,7 @@ export const authTypes: AuthType[] = [
   {
     slug: "certificate-based-authentication",
     name: "Certificate-Based Auth",
+    category: "Assertion-Based",
     description: "Uses client-side digital certificates to verify identity.",
     useCase: "High-security corporate environments, B2B, and IoT devices.",
     security: "High",
@@ -151,6 +158,7 @@ export const authTypes: AuthType[] = [
   {
     slug: "openid-connect",
     name: "OpenID Connect (OIDC)",
+    category: "OAuth/OIDC",
     description: "An identity layer on top of OAuth2 for user authentication.",
     useCase: "SSO, federated identity, modern consumer and enterprise applications.",
     security: "High",
@@ -171,6 +179,7 @@ export const authTypes: AuthType[] = [
   {
     slug: "saml",
     name: "SAML",
+    category: "Assertion-Based",
     description: "An XML-based standard for exchanging authentication and authorization data.",
     useCase: "Enterprise SSO, federated identity between different organizations.",
     security: "High",
@@ -191,6 +200,7 @@ export const authTypes: AuthType[] = [
   {
     slug: "multi-factor-authentication",
     name: "Multi-Factor (MFA)",
+    category: "Passwordless/MFA",
     description: "Requires two or more verification factors to gain access.",
     useCase: "Securing sensitive accounts, regulatory compliance (e.g., PCI DSS).",
     security: "High",
@@ -211,6 +221,7 @@ export const authTypes: AuthType[] = [
   {
     slug: "biometric-authentication",
     name: "Biometric Authentication",
+    category: "Biometric/Hardware",
     description: "Uses unique biological characteristics (fingerprint, face).",
     useCase: "Mobile devices, high-security access, passwordless login.",
     security: "High",
@@ -231,6 +242,7 @@ export const authTypes: AuthType[] = [
   {
     slug: "kerberos-authentication",
     name: "Kerberos Authentication",
+    category: "Secure Enterprise Flow",
     description: "A network authentication protocol using tickets to prove identity.",
     useCase: "Windows Active Directory, large corporate networks, Unix systems.",
     security: "High",
@@ -251,6 +263,7 @@ export const authTypes: AuthType[] = [
   {
     slug: "single-sign-on",
     name: "Single Sign-On (SSO)",
+    category: "Secure Enterprise Flow",
     description: "Log in once to access multiple independent software systems.",
     useCase: "Corporate environments, large platforms with multiple services (e.g., Google Suite).",
     security: "High",
@@ -271,6 +284,7 @@ export const authTypes: AuthType[] = [
   {
     slug: "hmac-authentication",
     name: "HMAC Authentication",
+    category: "Token-Based",
     description: "Uses a cryptographic hash function and a secret key for message authentication.",
     useCase: "Securing webhook endpoints, server-to-server API calls.",
     security: "Medium",
@@ -291,6 +305,7 @@ export const authTypes: AuthType[] = [
   {
     slug: "ntlm-authentication",
     name: "NTLM Authentication",
+    category: "Session-Based",
     description: "A suite of Microsoft security protocols for challenge-response authentication.",
     useCase: "Legacy Windows environments, backward compatibility within intranets.",
     security: "Low",
@@ -311,6 +326,7 @@ export const authTypes: AuthType[] = [
   {
     slug: "ldap-authentication",
     name: "LDAP Authentication",
+    category: "Session-Based",
     description: "Validates user credentials against an LDAP directory service.",
     useCase: "Centralized user management in corporate networks (e.g., Active Directory).",
     security: "Medium",
@@ -331,6 +347,7 @@ export const authTypes: AuthType[] = [
   {
     slug: "anonymous-authentication",
     name: "Anonymous Authentication",
+    category: "Basic",
     description: "Grants access to public resources without verifying identity.",
     useCase: "Public websites, guest access, read-only content.",
     security: "Low",
@@ -351,6 +368,7 @@ export const authTypes: AuthType[] = [
   {
     slug: "challenge-response-authentication",
     name: "Challenge-Response Auth",
+    category: "Advanced Concepts",
     description: "Server sends a challenge, client responds with a computed value.",
     useCase: "Secure passwordless systems, preventing replay attacks.",
     security: "Medium",
@@ -371,6 +389,7 @@ export const authTypes: AuthType[] = [
   {
     slug: "smart-card-authentication",
     name: "Smart Card Authentication",
+    category: "Biometric/Hardware",
     description: "Uses a physical smart card with an embedded certificate.",
     useCase: "Government (e.g., PIV/CAC cards), military, finance.",
     security: "High",
@@ -391,6 +410,7 @@ export const authTypes: AuthType[] = [
   {
     slug: "social-authentication",
     name: "Social Authentication",
+    category: "OAuth/OIDC",
     description: "Uses existing login information from social networks.",
     useCase: "Consumer applications, reducing friction for user signup.",
     security: "High",
@@ -411,6 +431,7 @@ export const authTypes: AuthType[] = [
   {
     slug: "one-time-password",
     name: "One-Time Password (OTP)",
+    category: "Passwordless/MFA",
     description: "A password that is valid for only one login session or transaction.",
     useCase: "As a second factor in MFA, verifying transactions.",
     security: "Medium",
@@ -431,6 +452,7 @@ export const authTypes: AuthType[] = [
   {
     slug: "zero-trust-authentication",
     name: "Zero Trust Authentication",
+    category: "Passwordless/MFA",
     description: "Assumes no implicit trust and continuously verifies every access attempt.",
     useCase: "Modern cloud-native environments, protecting against lateral movement.",
     security: "High",
@@ -451,6 +473,7 @@ export const authTypes: AuthType[] = [
   {
     slug: "webauthn",
     name: "WebAuthn",
+    category: "Biometric/Hardware",
     description: "A web standard for secure, passwordless authentication using public-key cryptography.",
     useCase: "Modern web applications, passwordless login, phishing-resistant MFA.",
     security: "High",
@@ -471,6 +494,7 @@ export const authTypes: AuthType[] = [
   {
     slug: "mutual-tls",
     name: "Mutual TLS (mTLS)",
+    category: "Assertion-Based",
     description: "Both client and server authenticate each other using TLS certificates.",
     useCase: "Server-to-server APIs (microservices), IoT devices, Zero Trust networks.",
     security: "High",
@@ -491,6 +515,7 @@ export const authTypes: AuthType[] = [
   {
     slug: "delegated-authentication",
     name: "Delegated Authentication",
+    category: "Token-Based",
     description: "Delegates the authentication process to a trusted external service or identity provider.",
     useCase: "Integrating with enterprise IdPs, using third-party login services.",
     security: "High",
@@ -506,6 +531,27 @@ export const authTypes: AuthType[] = [
     pros: ["Reduces security burden on application", "Enables SSO and federation", "Leverages specialized identity services"],
     cons: ["Creates dependency on IdP", "Requires understanding of federation protocols"],
     ssoCapability: 'Native',
+    developerExperience: 'Complex',
+  },
+  {
+    slug: "device-fingerprint-authentication",
+    name: "Device Fingerprint Authentication",
+    category: "Passwordless/MFA",
+    description: "Identifies devices by collecting a unique set of browser and hardware attributes.",
+    useCase: "Fraud detection, bot prevention, and as a factor in risk-based authentication.",
+    security: "Medium",
+    complexity: "High",
+    protocols: "Proprietary",
+    phishingResistance: 'Low',
+    ux: 'Low Friction',
+    credentialType: 'Device Attributes',
+    standardization: 'De facto',
+    technicalExplanation: "Device fingerprinting involves collecting a wide array of data points from a user's device, such as browser version, installed fonts, screen resolution, operating system, and hardware specifics. These attributes are combined to create a unique 'fingerprint' or hash. While not infallible, this fingerprint can be used to identify a returning device with a high degree of probability, serving as a passive authentication factor to detect anomalies or add confidence to a session.",
+    setupInstructions: PlaceholderSetup,
+    diagram: GenericAuthDiagram,
+    pros: ["Passive and frictionless for the user", "Effective for fraud and bot detection"],
+    cons: ["Raises privacy concerns", "Can be spoofed", "Fingerprints can change with software updates"],
+    ssoCapability: 'Not Suited',
     developerExperience: 'Complex',
   },
 ];
