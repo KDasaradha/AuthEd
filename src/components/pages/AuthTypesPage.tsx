@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useMemo } from 'react';
@@ -97,7 +98,7 @@ export function AuthTypesPage() {
             <div className="space-y-2">
               <Label htmlFor="category">Category</Label>
               <Select value={filters.category} onValueChange={(value) => handleFilterChange('category', value)}>
-                <SelectTrigger id="category"><SelectValue /></SelectTrigger>
+                <SelectTrigger id="category"><SelectValue placeholder="All Categories" /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All Categories</SelectItem>
                   {categories.map(cat => <SelectItem key={cat} value={cat}>{cat}</SelectItem>)}
@@ -107,7 +108,7 @@ export function AuthTypesPage() {
             <div className="space-y-2">
               <Label htmlFor="security">Security Level</Label>
               <Select value={filters.security} onValueChange={(value) => handleFilterChange('security', value)}>
-                <SelectTrigger id="security"><SelectValue /></SelectTrigger>
+                <SelectTrigger id="security"><SelectValue placeholder="All Security Levels" /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All Security Levels</SelectItem>
                   <SelectItem value="High">High</SelectItem>
@@ -119,7 +120,7 @@ export function AuthTypesPage() {
             <div className="space-y-2">
               <Label htmlFor="complexity">Implementation Complexity</Label>
               <Select value={filters.complexity} onValueChange={(value) => handleFilterChange('complexity', value)}>
-                <SelectTrigger id="complexity"><SelectValue /></SelectTrigger>
+                <SelectTrigger id="complexity"><SelectValue placeholder="All Complexities" /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All Complexities</SelectItem>
                   <SelectItem value="High">High</SelectItem>
