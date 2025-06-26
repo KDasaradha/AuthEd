@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useMemo } from 'react';
@@ -19,10 +20,12 @@ const initialFilters = {
     developerExperience: 'all'
 };
 
+type SortableKeys = 'name' | 'security' | 'complexity';
+
 export function ComparisonPage() {
     const [searchTerm, setSearchTerm] = useState('');
     const [filters, setFilters] = useState(initialFilters);
-    const [sortConfig, setSortConfig] = useState({ key: 'name', direction: 'asc' });
+    const [sortConfig, setSortConfig] = useState<{ key: SortableKeys; direction: 'asc' | 'desc' }>({ key: 'name', direction: 'asc' });
 
     const filteredAndSortedTypes = useMemo(() => {
         let filtered = authTypes.filter(type =>
@@ -37,10 +40,22 @@ export function ComparisonPage() {
         });
 
         filtered.sort((a, b) => {
-            const key = sortConfig.key as keyof typeof a;
+            const key = sortConfig.key;
             let valA = a[key];
             let valB = b[key];
             
+            // Handle categorical sorting for 'security' and 'complexity'
+            const order: Record<string, number> = { 'Low': 1, 'Medium': 2, 'Moderate': 2, 'Easy': 3, 'High': 3, 'Complex': 1 };
+
+            if (key === 'security' || key === 'complexity') {
+                const orderA = order[valA] || 0;
+                const orderB = order[valB] || 0;
+                if (orderA !== orderB) {
+                    return sortConfig.direction === 'asc' ? orderA - orderB : orderB - orderA;
+                }
+            }
+            
+            // Fallback to alphabetical sort for name or as a tie-breaker
             if (typeof valA === 'string' && typeof valB === 'string') {
               const comparison = valA.localeCompare(valB);
               return sortConfig.direction === 'asc' ? comparison : -comparison;
@@ -61,18 +76,18 @@ export function ComparisonPage() {
         setSortConfig({ key: 'name', direction: 'asc' });
     };
 
-    const handleSort = (key: string) => {
+    const handleSort = (key: SortableKeys) => {
       setSortConfig(prev => ({
         key,
         direction: prev.key === key && prev.direction === 'asc' ? 'desc' : 'asc'
       }));
     }
 
-    const getBadgeVariant = (level: 'Low' | 'Medium' | 'High' | 'Easy' | 'Moderate' | 'Complex') => {
+    const getBadgeVariant = (level: 'Low' | 'Medium' | 'High' | 'Easy' | 'Moderate' | 'Complex' | string) => {
         switch (level) {
-            case 'High': case 'Easy': return 'default';
-            case 'Medium': case 'Moderate': return 'secondary';
-            case 'Low': case 'Complex': return 'destructive';
+            case 'High': case 'Easy': case 'Native': return 'default';
+            case 'Medium': case 'Moderate': case 'Possible': return 'secondary';
+            case 'Low': case 'Complex': case 'Not Suited': return 'destructive';
             default: return 'outline';
         }
     };
@@ -111,7 +126,7 @@ export function ComparisonPage() {
                     <div className="space-y-2">
                         <Label htmlFor="security">Security Level</Label>
                         <Select value={filters.security} onValueChange={(value) => handleFilterChange('security', value)}>
-                            <SelectTrigger id="security"><SelectValue /></SelectTrigger>
+                            <SelectTrigger id="security"><SelectValue placeholder="All Security Levels" /></SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="all">All Security Levels</SelectItem>
                                 <SelectItem value="High">High</SelectItem>
@@ -123,7 +138,7 @@ export function ComparisonPage() {
                     <div className="space-y-2">
                         <Label htmlFor="complexity">Implementation Complexity</Label>
                         <Select value={filters.complexity} onValueChange={(value) => handleFilterChange('complexity', value)}>
-                            <SelectTrigger id="complexity"><SelectValue /></SelectTrigger>
+                            <SelectTrigger id="complexity"><SelectValue placeholder="All Complexities" /></SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="all">All Complexities</SelectItem>
                                 <SelectItem value="High">High</SelectItem>
@@ -135,7 +150,7 @@ export function ComparisonPage() {
                     <div className="space-y-2">
                         <Label htmlFor="dev-exp">Developer Experience</Label>
                          <Select value={filters.developerExperience} onValueChange={(value) => handleFilterChange('developerExperience', value)}>
-                            <SelectTrigger id="dev-exp"><SelectValue /></SelectTrigger>
+                            <SelectTrigger id="dev-exp"><SelectValue placeholder="All Dev Experiences" /></SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="all">All Dev Experiences</SelectItem>
                                 <SelectItem value="Complex">Complex</SelectItem>
@@ -167,7 +182,7 @@ export function ComparisonPage() {
             {filteredAndSortedTypes.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                     {filteredAndSortedTypes.map((type) => (
-                        <Card key={type.slug} className="flex flex-col h-full hover:border-primary/80 hover:shadow-lg transition-all duration-300">
+                        <Card key={type.slug} className="flex flex-col h-full hover:border-primary/80 hover:shadow-primary/20 hover:shadow-lg transition-all duration-300">
                             <CardHeader>
                                 <CardTitle>{type.name}</CardTitle>
                                 <CardDescription>{type.description}</CardDescription>
@@ -177,20 +192,20 @@ export function ComparisonPage() {
                                     <div className="flex justify-between items-center"><span>Security</span> <Badge variant={getBadgeVariant(type.security)}>{type.security}</Badge></div>
                                     <div className="flex justify-between items-center"><span>Complexity</span> <Badge variant={getBadgeVariant(type.complexity)}>{type.complexity}</Badge></div>
                                     <div className="flex justify-between items-center"><span>Dev Experience</span> <Badge variant={getBadgeVariant(type.developerExperience)}>{type.developerExperience}</Badge></div>
-                                    <div className="flex justify-between items-center"><span>SSO</span> <Badge variant={type.ssoCapability === 'Native' ? 'default' : type.ssoCapability === 'Possible' ? 'secondary' : 'outline'}>{type.ssoCapability}</Badge></div>
+                                    <div className="flex justify-between items-center"><span>SSO</span> <Badge variant={getBadgeVariant(type.ssoCapability)}>{type.ssoCapability}</Badge></div>
                                 </div>
                                 <Separator />
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <div>
                                         <h4 className="font-semibold mb-2 flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-green-500" /> Pros</h4>
                                         <ul className="list-inside space-y-1 text-xs text-muted-foreground">
-                                            {type.pros.map(pro => <li key={pro}>- {pro}</li>)}
+                                            {type.pros.slice(0, 3).map(pro => <li key={pro} className="truncate" title={pro}>- {pro}</li>)}
                                         </ul>
                                     </div>
                                     <div>
                                         <h4 className="font-semibold mb-2 flex items-center gap-2"><XCircle className="w-4 h-4 text-red-500" /> Cons</h4>
                                         <ul className="list-inside space-y-1 text-xs text-muted-foreground">
-                                            {type.cons.map(con => <li key={con}>- {con}</li>)}
+                                            {type.cons.slice(0, 3).map(con => <li key={con} className="truncate" title={con}>- {con}</li>)}
                                         </ul>
                                     </div>
                                 </div>
@@ -204,9 +219,9 @@ export function ComparisonPage() {
                     ))}
                 </div>
             ) : (
-                <div className="text-center py-16 border-2 border-dashed rounded-lg">
-                    <p className="font-semibold">No authentication types match your criteria.</p>
-                    <p className="text-muted-foreground mt-1">Try adjusting your filters or search term.</p>
+                <div className="text-center py-16 border-2 border-dashed rounded-lg bg-card/50">
+                    <p className="text-2xl font-semibold tracking-tight">No Results Found</p>
+                    <p className="text-muted-foreground mt-2">Try adjusting your search or filter criteria.</p>
                     <Button variant="outline" className="mt-4" onClick={resetFilters}>Reset Filters</Button>
                 </div>
             )}
