@@ -4,6 +4,8 @@ import { AuthFlowDiagram } from "@/components/auth/AuthFlowDiagram";
 import { InteractiveDemo } from "@/components/auth/InteractiveDemo";
 import type { AuthType } from "@/lib/types";
 import { CheckCircle2, XCircle } from "lucide-react";
+import { HttpExamples } from "@/components/auth/HttpExamples";
+import { SecurityWarning } from "@/components/auth/SecurityWarning";
 
 type AuthTypeDetailPageProps = {
   authType: AuthType;
@@ -26,6 +28,10 @@ export function AuthTypeDetailPage({ authType }: AuthTypeDetailPageProps) {
             <Badge variant="secondary">Protocols: {authType.protocols}</Badge>
         </div>
       </header>
+
+      {authType.securityNotes && (
+        <SecurityWarning>{authType.securityNotes}</SecurityWarning>
+      )}
       
       <div className="grid lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">
@@ -37,6 +43,8 @@ export function AuthTypeDetailPage({ authType }: AuthTypeDetailPageProps) {
                     <p>{authType.technicalExplanation}</p>
                 </CardContent>
             </Card>
+
+            {authType.httpExamples && <HttpExamples examples={authType.httpExamples} />}
 
             <Card>
                 <CardHeader>

@@ -1,4 +1,4 @@
-import type { ComponentType } from 'react';
+import type { ComponentType, ReactNode } from 'react';
 
 export type AuthType = {
   slug: string;
@@ -20,4 +20,10 @@ export type AuthType = {
   cons: string[];
   ssoCapability: 'Native' | 'Possible' | 'Not Suited';
   developerExperience: 'Easy' | 'Moderate' | 'Complex';
+  httpExamples?: {
+    request?: string;
+    successResponse?: string;
+    errorResponse?: string;
+  };
+  securityNotes?: ReactNode;
 };

@@ -6,6 +6,7 @@ import {
     OAuth2Diagram 
 } from '@/components/auth/AuthTypeDiagrams';
 import { PlaceholderSetup } from '@/components/auth/PlaceholderSetup';
+import React from 'react';
 
 export const authTypes: AuthType[] = [
   {
@@ -28,6 +29,29 @@ export const authTypes: AuthType[] = [
     cons: ["Insecure without TLS", "Sends credentials with every request"],
     ssoCapability: 'Not Suited',
     developerExperience: 'Easy',
+    httpExamples: {
+      request: `GET /resource HTTP/1.1
+Host: api.example.com
+Authorization: Basic dXNlcjpwYXNz`,
+      successResponse: `HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "message": "Access granted to protected resource"
+}`,
+      errorResponse: `HTTP/1.1 401 Unauthorized
+WWW-Authenticate: Basic realm="User Visible Realm"`,
+    },
+    securityNotes: (
+      <>
+        <p>
+          <strong>Crucial Warning:</strong> Basic Authentication is only secure when used over a transport layer that is itself encrypted, such as HTTPS (using TLS/SSL).
+        </p>
+        <p className="mt-2">
+          Without TLS, the Base64-encoded credentials can be easily intercepted and decoded by anyone monitoring the network traffic. Never use Basic Auth over an unencrypted HTTP connection in a production environment.
+        </p>
+      </>
+    ),
   },
   {
     slug: "token-based-authentication",
